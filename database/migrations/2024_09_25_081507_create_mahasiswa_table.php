@@ -14,8 +14,24 @@ return new class extends Migration
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id('nim');
             $table->string('nama');
+            $table->string('kode_prodi');
+            $table->integer('semester');
+            $table->integer('id_kelas');
+            $table->integer('nip');
             $table->string('no_hp');
-            $table->string('email');
+            $table->timestamps();
+        });
+
+        Schema::create('jurusan', function (Blueprint $table) {
+            $table->string('kode_jurusan')->primary();
+            $table->string('nama_jurusan');
+            $table->timestamps();
+        });
+
+        Schema::create('prodi', function (Blueprint $table) {
+            $table->string('kode_prodi')->primary();
+            $table->string('kode_jurusan');
+            $table->string('nama_prodi');
             $table->timestamps();
         });
     }

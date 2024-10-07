@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+<<<<<<< HEAD
         // Membuat tabel referensi
         Schema::create('referensi', function (Blueprint $table) {
             $table->id('id_referensi');
@@ -41,6 +42,41 @@ return new class extends Migration
             $table->boolean('status_persetujuan');
             $table->date('tanggal_persetujuan');
             $table->timestamps(); // Membuat kolom created_at dan updated_at
+=======
+        Schema::create('referensi', function (Blueprint $table) {
+            $table->id('id_referensi');
+            $table->string('buku_referensi');
+            $table->timestamps();
+        });
+
+        // Membuat tabel rps
+        schema::create('rps', function (Blueprint $table){
+            $table->id('id_rps');
+            $table->unsignedBiginteger('nip');
+            $table->unsignedBiginteger('kode_matkul');
+            $table->unsignedBiginteger('id_referensi');
+            $table->text('deskripsi');
+            $table->string('cp_prodi');
+            $table->string('cp_matkul');
+            $table->string('bobot_penilaian');
+            $table->string('metode_penilaian');
+            $table->integer('minggu_ke');
+            $table->time('waktu');
+            $table->string('cp_tahapan_matkul');
+            $table->string('bahan_kajian');
+            $table->string('sub_bahan_kajian');
+            $table->string('bentuk_pembelajaran');
+            $table->string('kriterian_penilaian');
+            $table->string('bobot_materi');
+            $table->date('tanggal_pembuatan');
+            $table->date('tanggal_refrensi')->nullable();
+            $table->boolean('status_persetujuan');
+            $table->date('tanggal_persetujuan');
+            $table->timestamps();
+
+
+
+>>>>>>> fbf853156cfa29803029efbed972b6464ea4ecc1
         });
     }
 

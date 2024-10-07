@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->id(); //NIM, NIP, ID MAHASISWA
             $table->enum('role',['mahasiswa','dosen','staff'])->default('mahasiswa');
-            $table->string('token');
+            $table->string('email');
+            $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
