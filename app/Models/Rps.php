@@ -27,6 +27,7 @@ class rps extends Model
         'bahan_kajian',
         'sub_bahan_kajian',
         'bentuk_pembelajaran',
+        'bahan_pembelajaran',
         'kriteria_penilaian',
         'bobot_materi',
         'tanggal_pembuatan',

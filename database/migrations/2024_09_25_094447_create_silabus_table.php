@@ -40,7 +40,7 @@ return new class extends Migration
             $table->text('bobot_materi');
             $table->date('tanggal_pembuatan');
             $table->date('tanggal_referensi')->nullable(); // Typo diperbaiki dari 'tanggal_refrensi' ke 'tanggal_referensi'
-            $table->boolean('status_persetujuan');
+            $table->enum('status_persetujuan',['Disteujui','Proses'])->default('Proses');
             $table->date('tanggal_persetujuan');
             $table->timestamps(); // Membuat kolom created_at dan updated_at
         });
