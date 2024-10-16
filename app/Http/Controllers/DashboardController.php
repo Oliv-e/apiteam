@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Informasi;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Mahasiswa;
-use Rap2hpoutre\FastExcel\FastExcel;
-use Hash;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
+use Illuminate\Support\Facades\Hash;
 
-class MahasiswaController extends Controller
+
+class DashboardController extends Controller
 {
     public function index() {
         $data = Mahasiswa::all();
@@ -25,7 +25,7 @@ class MahasiswaController extends Controller
             return ord($abjad) - 64;
         }
         try {
-            $dmhs = (new FastExcel)->import($file, function($line) {
+            $dmhs = (new FastExcel())->import($file, function($line) {
                 if (User::where('id', $line['NIM'])->exists()) {
                     throw new \Exception('Data Sudah Ada');
                 }

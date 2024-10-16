@@ -1,22 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\LoginController;
-use App\Http\Controllers\Api\Auth\RegisterController;
-use App\Http\Controllers\Informasi\MahasiswaController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::GET('/', function() {
-    return redirect()->route('admin-dashboard-index');
+    return redirect()->route('dashboard');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function() {
-        Route::GET('/', function () {
-            return view('admin.dashboard.index');
-        })->name('admin-dashboard-index');
-        Route::GET('/data-mahasiswa', [MahasiswaController::class, 'index'])->name('data-mahasiswa');
-        Route::GET('/tambah-data-mahasiswa', [MahasiswaController::class, 'create'])->name('tambah-data-mahasiswa');
-        Route::POST('/import-data-mahasiswa', [MahasiswaController::class, 'import'])->name('import-data-mahasiswa');
+        Route::GET('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::GET('/data-mahasiswa', [DashboardController::class, 'data-mahasiswa'])->name('data-mahasiswa');
+        Route::GET('/tambah-data-mahasiswa', [DashboardController::class, 'create'])->name('tambah-data-mahasiswa');
+        Route::POST('/import-data-mahasiswa', [DashboardController::class, 'import'])->name('import-data-mahasiswa');
     });
 });
 
