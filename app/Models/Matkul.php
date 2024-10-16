@@ -17,4 +17,7 @@ class Matkul extends Model
         'sks',
         
     ];
+    public function rps(){
+        return $this->hasMany(Rps::class, 'kode_matkul', 'kode_matkul');
+        }
 }

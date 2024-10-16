@@ -15,4 +15,10 @@ class Dosen extends Model
         'nama',
         'no_hp'
     ];
+
+    //relasi ke rps
+    public function rps()
+    {
+        return $this->hasMany(Rps::class, 'nip', 'nip');
+    }
 }

@@ -1,7 +1,16 @@
 <?php
 
+use App\Http\Controllers\Api\RpsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MahasiswaController;
+use App\Http\Controllers\Api\ReferensiController;
+
+Route::get('/rps', [rpsController::class, 'index']);
+Route::get('/referensi', [ReferensiController::class, 'index'] );
+
+Route::post('/referensi_create', [ReferensiController::class, 'create']);
+Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
+
         // Mahasiswa
 Route::prefix('/mahasiswa')->group(function() {
     Route::get('/', function() {

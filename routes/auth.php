@@ -9,6 +9,6 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('logins');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
