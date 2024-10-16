@@ -11,7 +11,6 @@ use App\Models\ruang;
 
 class SibaperController extends BaseController
 {
-
     public function kelas(Request $request)
     {
        
@@ -25,21 +24,22 @@ class SibaperController extends BaseController
         return $this->SendResponse($data,'Sukses Mengambil Data');
     }
     
-    // public function BeritaAcara(Request $request)
-    // {
+    public function BeritaAcara(Request $request)
+    {
    
-    // $data = BeritaAcara::select('nip', 'id_jadwal', 'tanggal', 'id_rps', 'media', 'jam_ajar')
-    //     ->with([
-    //         'matkul', 
-    //         'dosen',   
-    //         'rps',     
-    //         'jadwal'   
-    //     ])
-    //     ->get();
+    //$data = BeritaAcara::select('nip', 'id_jadwal', 'tanggal', 'id_rps', 'media', 'jam_ajar')
+    $data = BeritaAcara::select('nip', 'id_jadwal', 'tanggal', 'id_rps', 'media', 'jam_ajar')
+        ->with([
+            'matkul', 
+            'dosen',   
+            'rps',     
+            'jadwal'   
+        ])
+        ->get();
 
    
-    // return $this->SendResponse($data, 'Sukses Mengambil Data');
-    // }
+    return $this->SendResponse($data, 'Sukses Mengambil Data');
+    }
 
     public function jadwal(Request $request)
     {

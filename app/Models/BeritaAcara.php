@@ -18,9 +18,6 @@ class BeritaAcara extends Model
         'media',
         'jam_ajar',
     ];
-
-    
-        
         public function matkul()
         {
             return $this->belongsTo(Matkul::class, 'id_matkul', 'id');  
@@ -43,5 +40,7 @@ class BeritaAcara extends Model
         {
             return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id'); 
         }
+
+        
     }
 

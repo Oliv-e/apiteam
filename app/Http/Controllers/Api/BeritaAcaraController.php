@@ -29,7 +29,7 @@ class BeritaAcaraController extends BaseController
             'tanggal'=> 'required',
             'id_rps'=> 'required',
             'media'=> 'required',
-            'jam_ajar'=> 'required',
+            'jam_ajar'=> 'required',    
         ]);
     
     BeritaAcara::create([
