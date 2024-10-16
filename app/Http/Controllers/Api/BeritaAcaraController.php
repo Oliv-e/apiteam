@@ -12,13 +12,25 @@ class BeritaAcaraController extends BaseController
     {
         //harus connect ke database rps dulu
         $data = BeritaAcara::select([
-            'tanggal'
-        ])->with([
-            'rps'=> function ($q){
-                $q->select(['pokok_bahasan','sub_pokok_bahasan']);
-            }
+            'nip',
+            'id_jadwal',
+            'tanggal',
+            'id_rps',
+            'media',
+            'jam_ajar',
+            ])->with([
+                'jadwal'=> function ($q){
+                    $q->select(['id_jadwal', ]);
+                }
+                 ])->with([
+                'jadwal'=> function ($q){
+                    $q->select(['id_jadwal', ]);
+                }
+             ])->with([
+                 'rps'=> function ($q){
+                  $q->select(['id_rps']);
+                }
         ])->get();
-        $data->makehidden(['nip','id_jadwal','id_rps','media','jam_ajar',]);
         return $this->sendResponse($data, 'sukses mengambil data');
     }
 
@@ -39,7 +51,6 @@ class BeritaAcaraController extends BaseController
         'id_rps'=>$request -> id_rps,
         'media'=>$request -> media,
         'jam_ajar'=>$request -> jam_ajar
-
     ]);
         return $this->sendResponse($data, 'Sukses membuat Data!');
     }

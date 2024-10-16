@@ -51,8 +51,6 @@ class SibaperController extends BaseController
             'ruang'  
         ])
         ->get();
-
-   
     return $this->SendResponse($data, 'Sukses Mengambil Data');
     }
     
