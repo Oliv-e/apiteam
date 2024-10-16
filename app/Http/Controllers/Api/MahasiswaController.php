@@ -6,7 +6,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Http\Resources\Api\MahasiswaCollection;
 use App\Http\Controllers\Api\BaseController;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends BaseController
 {

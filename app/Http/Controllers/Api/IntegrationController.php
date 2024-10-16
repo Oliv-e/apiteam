@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Http\Resources\Api\MahasiswaCollection;
 use App\Models\Mahasiswa;
 use App\Models\Dosen;
 
