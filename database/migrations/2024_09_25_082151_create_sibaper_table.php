@@ -18,6 +18,8 @@ return new class extends Migration
             $table->dateTime('tanggal');
             $table->string('media');
             $table->time('jam_ajar');
+            $table->integer('pertemuan');
+            $table->enum('status', ['onprocess', 'complete'])->default('onprocess');
             $table->timestamps();
         });
 
