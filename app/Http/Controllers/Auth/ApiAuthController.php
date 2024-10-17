@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -55,19 +56,19 @@ class ApiAuthController extends BaseController
             ]);
         }
         if ($request->role == 'Dosen') {
-            Mahasiswa::create([
+            Dosen::create([
                 'nip' => $request->id,
                 'nama' => $request->nama,
                 'no_hp' => $request->no_hp
             ]);
         }
-        if ($request->role == 'Dosen') {
-            Mahasiswa::create([
-                'id' => $request->id,
-                'nama' => $request->nama,
-                'no_hp' => $request->no_hp
-            ]);
-        }
+        // if ($request->role == 'Admin') {
+        //     Staff::create([
+        //         'id' => $request->id,
+        //         'nama' => $request->nama,
+        //         'no_hp' => $request->no_hp
+        //     ]);
+        // }
 
         return $this->sendResponse($user, 'User register successfully.');
     }
