@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_admin');
             $table->integer('id_kategori');
+            $table->string('nama_kategori');
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('file_path');
@@ -23,12 +24,15 @@ return new class extends Migration
             $table->string('upload_by');
             $table->timestamps();
         });
-
-        Schema::create('kategori', function (Blueprint $table) {
+        Schema::create('markeddokumen', function (Blueprint $table){
             $table->id();
-            $table->string('nama_kategori');
+            $table->integer('id_tandai');
+            $table->integer('id_user');
+            $table->integer('id_dokumen');
             $table->timestamps();
         });
+
+        
     }
 
     /**
