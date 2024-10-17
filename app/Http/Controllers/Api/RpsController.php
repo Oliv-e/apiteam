@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Rps;
 
-class rpsController extends BaseController
+class RpsController extends BaseController
 {
     // Fungsi untuk mengambil data RPS
     public function index() {
@@ -30,7 +30,7 @@ class rpsController extends BaseController
                 'dosen' => function ($q) {
                     // Memilih kolom 'nama' dan 'jabatan' dari relasi dosen
                     $q->select(['nip', 'nama']);
-                }, 
+                },
                 'matkul' => function ($q) {
                     // Memilih kolom 'kode_matkul' dan 'nama_matkul' dari relasi matkul
                     $q->select(['kode_matkul', 'nama_matkul']);

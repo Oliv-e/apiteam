@@ -1,11 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\IntegrationController;
-use App\Http\Controllers\Auth\ApiAuthController;
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\RpsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\MahasiswaController;
 use App\Http\Controllers\Api\ReferensiController;
 
 Route::get('/rps', [rpsController::class, 'index']);
