@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 class DashboardController extends Controller
 {
     public function index() {
+        return view("admin.dashboard.index");
+    }
+    public function data_mahasiswa() {
         $data = Mahasiswa::all();
         return view("admin.mahasiswa.index", compact('data'));
     }

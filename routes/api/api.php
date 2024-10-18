@@ -6,6 +6,13 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MahasiswaController;
 
+    Route::POST('/login', [ApiAuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::POST('/register', [ApiAuthController::class, 'register']);
+        ROUTE::POST('/logout', [ApiAuthController::class, 'logout']);
+    });
+
+
 Route::middleware(['auth:sanctum'])->group( function () {
     Route::GET('/mahasiswa', [IntegrationController::class , 'mahasiswa']);
     Route::GET('/mahasiswa/{id}', [IntegrationController::class , 'mahasiswa_by_id']);
