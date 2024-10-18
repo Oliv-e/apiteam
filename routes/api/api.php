@@ -1,10 +1,16 @@
 <?php
 
 use App\Http\Controllers\Api\IntegrationController;
-use App\Http\Controllers\Auth\ApiAuthController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\RpsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\MahasiswaController;
+use App\Http\Controllers\Api\ReferensiController;
+
+Route::get('/rps', [rpsController::class, 'index']);
+Route::get('/referensi', [ReferensiController::class, 'index'] );
+
+Route::post('/referensi_create', [ReferensiController::class, 'create']);
+Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
+
 
     Route::POST('/login', [ApiAuthController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function () {
@@ -27,8 +33,8 @@ Route::middleware(['auth:sanctum'])->group( function () {
 Route::prefix('sibaper')->group(function() {
     require __DIR__ .'\sibaper.php';
 });
-Route::prefix('sirekap')->group(function() {
-    require __DIR__ .'\sirekap.php';
+Route::prefix('arsip')->group(function() {
+    require __DIR__ .'\arsip.php';
 });
 Route::prefix('perwalian')->group(function() {
     require __DIR__ .'\perwalian.php';

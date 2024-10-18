@@ -5,21 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dosen extends Model
+class StaffAdmin extends Model
 {
     use HasFactory;
-
-    protected $table = 'dosen';
+    protected $table = 'admin';
     protected $fillable = [
-        'id',
-        'nip',
+        'id_admin',
         'nama',
         'no_hp'
     ];
-
-    //relasi ke rps
-    public function rps()
-    {
-        return $this->hasMany(Rps::class, 'nip', 'nip');
-    }
 }
+
+

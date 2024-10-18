@@ -12,38 +12,39 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('konsultasi', function (Blueprint $table) {
-            $table->id();
-            $table->integer('nim');
+            // $table->id();
+            $table->bigInteger('nim');
             $table->dateTime('tanggal');
             $table->text('materi');
             $table->timestamps();
         });
 
         Schema::create('khs', function (Blueprint $table) {
-            $table->id();
+            //$table->id();
+            $table->bigInteger('nim');
             $table->integer('semester');
             $table->string('tahun_ajaran');
-            $table->string('status');
+            $table->enum('status', ['Disetujui', 'Tidak Disetujui', 'Proses'])->default('Proses');
             $table->timestamps();
         });
 
         Schema::create('rekomendasi', function (Blueprint $table) {
-            $table->id();
-            $table->integer('nim');
+            //$table->id('id_rek');
+            $table->bigInteger('nim');
             $table->string('jenis_rekomendasi');
             $table->dateTime('tanggal_pengajuan');
             $table->dateTime('tanggal_persetujuan');
             $table->text('keterangan');
-            $table->string('status');
+            $table->enum('status', ['Disetujui', 'Tidak Disetujui', 'Proses'])->default('Proses');
             $table->timestamps();
         });
 
         Schema::create('janji_temu', function (Blueprint $table) {
-            $table->id();
-            $table->integer('nim');
+            //$table->id();
+            $table->bigInteger('nim');
             $table->dateTime('tanggal');
             $table->text('materi');
-            $table->string('status');
+            $table->enum('status', ['Disetujui', 'Tidak Disetujui', 'Proses'])->default('Proses');
             $table->timestamps();
         });
     }

@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('berita_acara', function (Blueprint $table) {
-            $table->id('id_jadwal');
+            $table->integer('nip')->primary();
+            $table->integer('id_jadwal');
             $table->integer('id_rps');
             $table->dateTime('tanggal');
             $table->string('media');
             $table->time('jam_ajar');
+            $table->integer('pertemuan');
+            $table->enum('status', ['onprocess', 'complete'])->default('onprocess');
             $table->timestamps();
         });
 
@@ -47,8 +50,9 @@ return new class extends Migration
 
         Schema::create('matkul', function (Blueprint $table) {
             $table->string('kode_matkul')->primary();
+            $table->string('nama_matkul');
             $table->integer('jumlah_jam');
-            $table->integer('jumlah_SKS');
+            $table->integer('sks');
             $table->timestamps();
         });
     }
