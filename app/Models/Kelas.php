@@ -13,10 +13,11 @@ class Kelas extends Model
         'id_kelas',
         'abjad_kelas'
     ];
-    // public function matkul()
-// {
-//     return $this->belongsTo(Matkul::class, 'matkul_id', 'id'); 
-// }
+    
+    public function matkul()
+    {
+        return $this->belongsTo(Matkul::class, 'matkul_id', 'id'); 
+    }
 
 // public function dosen()
 // {

@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('konsultasi', function (Blueprint $table) {
-            // $table->id();
-            $table->bigInteger('nim');
+            $table->bigInteger('nim')->primary();
             $table->dateTime('tanggal');
             $table->text('materi');
             $table->timestamps();
         });
 
         Schema::create('khs', function (Blueprint $table) {
-            //$table->id();
-            $table->bigInteger('nim');
+            $table->bigInteger('nim')->primary();
             $table->integer('semester');
             $table->string('tahun_ajaran');
             $table->enum('status', ['Disetujui', 'Tidak Disetujui', 'Proses'])->default('Proses');
@@ -29,8 +27,7 @@ return new class extends Migration
         });
 
         Schema::create('rekomendasi', function (Blueprint $table) {
-            //$table->id('id_rek');
-            $table->bigInteger('nim');
+            $table->bigInteger('nim')->primary();
             $table->string('jenis_rekomendasi');
             $table->dateTime('tanggal_pengajuan');
             $table->dateTime('tanggal_persetujuan');
@@ -40,8 +37,7 @@ return new class extends Migration
         });
 
         Schema::create('janji_temu', function (Blueprint $table) {
-            //$table->id();
-            $table->bigInteger('nim');
+            $table->bigInteger('nim')->primary();
             $table->dateTime('tanggal');
             $table->text('materi');
             $table->enum('status', ['Disetujui', 'Tidak Disetujui', 'Proses'])->default('Proses');
