@@ -20,6 +20,8 @@ Route::post('/khs-tambah', [KHSController::class, 'khs_create']);
 
 Route::get('/konsul', [KonsultasiController::class, 'konsul']);
 Route::post('/konsul-tambah', [KonsultasiController::class, 'konsul_create']);
+Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
+Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
 
 Route::get('/janjitemu', [JanjiTemuController::class, 'janji_temu']);
 Route::post('/janjitemu-tambah', [JanjiTemuController::class, 'janji_temu_create']);

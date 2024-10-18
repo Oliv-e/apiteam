@@ -7,8 +7,9 @@
 class Rekomendasi extends Model
 {
     use HasFactory;
-    protected $table    = 'rekomendasi';
-    protected $fillable = [
+    protected $table        = 'rekomendasi';
+    protected $primaryKey   = 'nim';
+    protected $fillable     = [
         'nim',
         'jenis_rekomendasi',
         'tanggal_pengajuan',
