@@ -26,7 +26,7 @@ class Mahasiswa extends Model
     public function kelas() {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
-    public function dosen() {
+    public function dosen_pembimbing() {
         return $this->belongsTo(Dosen::class, 'nip', 'nip');
     }
 }

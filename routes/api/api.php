@@ -4,6 +4,13 @@ use App\Http\Controllers\Api\IntegrationController;
 use App\Http\Controllers\Api\RpsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ReferensiController;
+use App\Http\Controllers\Auth\ApiAuthController as AAC;
+
+Route::POST('/login', [AAC::class, 'login']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::POST('/register', [AAC::class, 'register']);
+        ROUTE::POST('/logout', [AAC::class, 'logout']);
+    });
 
 Route::get('/rps', [rpsController::class, 'index']);
 Route::get('/referensi', [ReferensiController::class, 'index'] );
