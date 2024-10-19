@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('berita_acara', function (Blueprint $table) {
-            $table->integer('nip')->primary();
+            $table->bigInteger('nip')->primary();
             $table->integer('id_jadwal');
             $table->integer('id_rps');
             $table->dateTime('tanggal');
@@ -25,9 +25,9 @@ return new class extends Migration
 
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id('id_jadwal');
-            $table->integer('nip');
+            $table->bigInteger('nip');
             $table->integer('id_kelas');
-            $table->integer('id_ruang');
+            $table->string('id_ruang');
             $table->string('kode_matkul');
             $table->string('hari');
             $table->integer('semester');
@@ -37,7 +37,7 @@ return new class extends Migration
         });
 
         Schema::create('ruang', function (Blueprint $table) {
-            $table->id('id_ruang');
+            $table->string('id_ruang');
             $table->string('nama_ruang');
             $table->timestamps();
         });

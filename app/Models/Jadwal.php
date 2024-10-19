@@ -12,13 +12,14 @@ class Jadwal extends Model
 
     protected $fillable = [
         'id_jadwal',
+        'nip',
         'id_kelas',
         'kode_matkul',
         'id_ruang',
         'hari',
         'start',
         'finish',
-        'semester',    
+        'semester',
     ];
     public function matkul(){
         return $this->belongsto(matkul::class, 'kode_matkul', 'kode_matkul');

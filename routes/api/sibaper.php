@@ -24,3 +24,5 @@ Route::post('/data/Dosen/tambah', [DosenController::class , 'dosen'])->name('api
 Route::post('/data/Jadwal/tambah', [JadwalController::class , 'jadwal'])->name('api-data-jadwal-sibaper-tambah');
 Route::post('/data/matkul/tambah', [MatkulController::class , 'matkul'])->name('api-data-matkul-sibaper-tambah');
 Route::post('/data/ruang/tambah', [RuangController::class , 'ruang'])->name('api-data-ruang-sibaper-tambah');
+
+Route::get('/kelas-by-dosen-by-today', [SibaperController::class, 'kelas_by_dosen_today']);
