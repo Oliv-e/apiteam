@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ReferensiController;
 use App\Http\Controllers\Auth\ApiAuthController as AAC;
 
-Route::POST('/login', [AAC::class, 'login']);
+Route::post('/login', [AAC::class, 'login']);
     Route::middleware('auth:sanctum')->group(function () {
-        Route::POST('/register', [AAC::class, 'register']);
-        ROUTE::POST('/logout', [AAC::class, 'logout']);
+        Route::post('/register', [AAC::class, 'register']);
+        ROUTE::post('/logout', [AAC::class, 'logout']);
     });
 
 Route::get('/rps', [rpsController::class, 'index']);
@@ -21,15 +21,15 @@ Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
 
 Route::middleware(['auth:sanctum'])->group( function () {
     // bagian mahasiswa
-    Route::GET('/mahasiswa', [IntegrationController::class , 'mahasiswa']);
-    Route::GET('/mahasiswa/{id}', [IntegrationController::class , 'mahasiswa_by_id']);
-    Route::POST('/mahasiswa', [IntegrationController::class, 'mahasiswa_create']);
-    Route::POST('/mahasiswa-update/{id}', [IntegrationController::class, 'mahasiswa_update']);
-    Route::POST('/mahasiswa-delete/{id}', [IntegrationController::class, 'mahasiswa_delete']);
+    Route::get('/mahasiswa', [IntegrationController::class , 'mahasiswa']);
+    Route::get('/mahasiswa/{id}', [IntegrationController::class , 'mahasiswa_by_id']);
+    Route::post('/mahasiswa', [IntegrationController::class, 'mahasiswa_create']);
+    Route::post('/mahasiswa-update/{id}', [IntegrationController::class, 'mahasiswa_update']);
+    Route::post('/mahasiswa-delete/{id}', [IntegrationController::class, 'mahasiswa_delete']);
 
     // bagian dosen
-    Route::GET('/dosen', [IntegrationController::class, 'dosen']);
-    Route::POST('/dosen', [IntegrationController::class, 'dosen_create']);
+    Route::get('/dosen', [IntegrationController::class, 'dosen']);
+    Route::post('/dosen', [IntegrationController::class, 'dosen_create']);
 
     // bagian admin
 
