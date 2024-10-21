@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\System;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mahasiswa;
-use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Illuminate\Support\Facades\Hash;
+use Rap2hpoutre\FastExcel\FastExcel;
 
-
-class DashboardController extends Controller
+class MahasiswaController extends Controller
 {
     public function index() {
         return view("admin.dashboard.index");
@@ -18,8 +18,8 @@ class DashboardController extends Controller
         $data = Mahasiswa::all();
         return view("admin.mahasiswa.index", compact('data'));
     }
-    public function create() {
-        return view("admin.mahasiswa.create");
+    public function insert() {
+        return view("admin.mahasiswa.insert");
     }
     public function import(Request $request) {
         $file = $request->file('file');
@@ -35,9 +35,10 @@ class DashboardController extends Controller
                 Mahasiswa::create([
                     'nim' => $line['NIM'],
                     'nama' => $line['NAMA'],
+                    'kode_prodi' => $line['KODE PRODI'],
                     'semester' => $line['SEMESTER'],
-                    'kode_jurusan' => $line['KODE'],
                     'id_kelas' => alokasi_kelas($line['KELAS']),
+                    'nip' => $line['NIP'],
                     'no_hp' => $line['NO HP']
                 ]);
                 User::create([
@@ -48,9 +49,9 @@ class DashboardController extends Controller
                 ]);
             });
 
-            return redirect('data-mahasiswa')->with('success','Data Berhasil Ditambahkan');
+            return redirect()->route('dosen')->with('success','Data Berhasil Ditambahkan');
         } catch (\Exception $e) {
-            return redirect('data-mahasiswa')->with('error', 'Data Gagal Ditambahkan');
+            return redirect()->route('dosen')->with('error', 'Data Gagal Ditambahkan');
         }
     }
 }

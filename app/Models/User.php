@@ -54,8 +54,8 @@ class User extends Authenticatable
         }
         else if (Auth::check() && Auth::user()->role == 'dosen') {
             return $this->belongsTo(Dosen::class,'id', 'nip');
-        } // else {
-        //     return $this->belongsTo(Admin::class,'id', 'no_admin');
-        // }
+        } else {
+            return $this->belongsTo(StaffAdmin::class,'id', 'id_admin');
+        }
     }
 }

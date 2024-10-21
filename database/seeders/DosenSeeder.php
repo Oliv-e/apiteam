@@ -14,14 +14,29 @@ class DosenSeeder extends Seeder
      */
     public function run(): void
     {
-        Dosen::create([
-            'nip' => 12221,
-            'nama' => "Adam",
-            'no_hp' =>" 089512345678"
+        $dosen = [
+            [
+                'nip' => 197302061995011001,
+                'nama' => "Ferry Faisal",
+                'no_hp' => "081234567890"
+            ],[
+                'nip' => 198406112019031012,
+                'nama' => "Lindung Siswanto",
+                'no_hp' => "081234567890"
+            ]
+        ];
+        foreach($dosen as $data) {
+            Dosen::create($data);
+        }
+
+        Jabatan::create([
+            'nip' => 198406112019031012,
+            'is_kaprodi' => false,
+            'is_kajur' => false
         ]);
 
         Jabatan::create([
-            'nip' => 12221,
+            'nip' => 197302061995011001,
             'is_kaprodi' => false,
             'is_kajur' => false
         ]);

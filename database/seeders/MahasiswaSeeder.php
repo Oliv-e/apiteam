@@ -20,11 +20,25 @@ class MahasiswaSeeder extends Seeder
             'nama_jurusan' => 'TEKNIK ELEKTRO'
         ]);
 
-        Prodi::create([
-            'kode_prodi' => 'TIF',
-            'kode_jurusan' => 'ELEKTRO',
-            'nama_prodi' => 'Teknik Informatika'
-        ]);
+        $prodi = [
+            [
+                'kode_prodi' => 'TIF',
+                'kode_jurusan' => 'ELEKTRO',
+                'nama_prodi' => 'Teknik Informatika'
+            ],[
+                'kode_prodi' => 'TRSE',
+                'kode_jurusan' => 'ELEKTRO',
+                'nama_prodi' => 'Teknik Rekayasa Sistem Elektronik'
+            ],[
+                'kode_prodi' => 'TIL',
+                'kode_jurusan' => 'ELEKTRO',
+                'nama_prodi' => 'Teknik Listrik'
+            ]
+        ];
+
+        foreach ($prodi as $data) {
+            Prodi::create($data);
+        }
 
         Mahasiswa::create([
             'nim' => 3202216074,
@@ -32,7 +46,7 @@ class MahasiswaSeeder extends Seeder
             'kode_prodi' => 'TIF',
             'semester'=> 5,
             'id_kelas'=> 3,
-            'nip' => 12221,
+            'nip' => 198406112019031012,
             'no_hp'=> '0895411898900',
         ]);
     }
