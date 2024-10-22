@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Rps;
+use App\Models\Infomatkul;
 
-class RpsController extends BaseController
+class rpsController extends BaseController
 {
     // Fungsi untuk mengambil data RPS
     public function index() {
@@ -171,4 +172,76 @@ class RpsController extends BaseController
             return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
         }
     }
-}
+
+
+    // fungsi untuk mengampil data infomarsi matakuliah
+    public function infomatkul(Request $request) {
+        try {
+            // Validasi input yang diterima
+            $data = $request->validate([
+                'nama_matkul' => 'required',
+                'kode_matkul' => 'required',
+                'semester' => 'required',
+                'dosen' => 'required',
+                'sks' => 'required',
+                'deskripsi' => 'required',
+                'cp_prodi' => 'required',
+                'cp_matkul' => 'required',
+                'bobot_penilaian' => 'required',
+                'metode_penilaian' => 'required',
+                'buku_referensi' => 'required',
+
+            ]);
+
+            // Membuat data baru berdasarkan input yang validasi
+            infomatkul::create([
+                'nama_matkul' => $request->nama_matkul,
+                'kode_matkul' => $request->kode_matkul,
+                'semester' => $request->semester,
+                'dosen' => $request->dosen,
+                'sks' => $request->sks,
+                'deskripsi' => $request->deskripsi,
+                'cp_prodi' => $request->cp_prodi,
+                'cp_matkul' => $request->cp_matkul,
+                'bobot_penilaian' => $request->bobot_penilaian,
+                'metode_penilaian' => $request->metode_penilaian,
+                'buku_referensi' => $request->buku_referensi,
+            ]);
+
+            return $this->sendResponse([], 'Data RPS berhasil dihapus');
+        } catch (\Exception $e) {
+            return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
+        }
+    }
+
+    public function jadwal_pelaksanaan(Request $request){
+        try {
+            // validasi input yang diterima
+            $data = $request->validate([
+                'minggu_ke' => 'required',
+                'cp_tahapan_matkul' => 'required',
+                'bahan_kajian' => 'required',
+                'sub_bahan_kajian' => 'required',
+                'bentuk_pembelajaran' => 'required',
+                'kriteria_penilaian' => 'required',
+                'pengalaman_belajar' => 'required',
+                'bobot_materi' => 'required',
+                'referensi' => 'required',
+
+            ]);
+
+            // fungsi untuk membuat data rekomendasi baru
+
+
+            return $this->sendResponse([], 'Data RPS berhasil dihapus');
+        } catch (\Exception $e) {
+            return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
+        }
+        }
+
+    }
+        
+
+
+   
+
