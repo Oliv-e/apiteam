@@ -58,7 +58,7 @@ class KonsultasiController extends BaseController
     public function konsul_update(Request $request, $nim)
     {
         // Validasi input
-        $data = $request->validate([
+        $konsul = $request->validate([
             // 'nim' => 'required',
             'tanggal' => 'required',
             'materi' => 'required'
@@ -69,7 +69,7 @@ class KonsultasiController extends BaseController
 
         // Update data yang ditemukan
         $konsul->update([
-            'nim' => $request->nim,
+            //'nim' => $request->nim,
             'tanggal' => $request->tanggal,
             'materi' => $request->materi
         ]);

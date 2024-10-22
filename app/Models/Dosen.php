@@ -11,7 +11,6 @@ class Dosen extends Model
 
     protected $table = 'dosen';
     protected $fillable = [
-        'id',
         'nip',
         'nama',
         'no_hp'
@@ -21,5 +20,8 @@ class Dosen extends Model
     public function rps()
     {
         return $this->hasMany(Rps::class, 'nip', 'nip');
+    }
+    public function mahasiswa_bimbingan() {
+        return $this->hasMany(Mahasiswa::class, 'nip','nip');
     }
 }
