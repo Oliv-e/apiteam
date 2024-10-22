@@ -13,7 +13,7 @@ class Konsultasi extends Model
     protected $fillable     = [
         'nim',
         'tanggal',
-        'materi',
+        'materi'
     ];
 
     public function mahasiswa()
