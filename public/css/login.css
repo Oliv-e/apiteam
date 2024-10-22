@@ -7,13 +7,17 @@ body {
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
 }
-
+.btn {
+    font-weight: bold;
+}
 body, html {
     margin: 0;
     padding: 0;
     top: 0;
 }
-
+.hidden {
+    display: none;
+}
 .login {
     padding: 0;
     margin: 0;
@@ -30,7 +34,7 @@ body, html {
 
 .login > h1 {
     font-size: 25px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-align: center;
 }
 
@@ -38,7 +42,13 @@ body, html {
     font-size: 14px;
     font-weight: 600;
 }
-
+.error {
+    color: red;
+    font-weight: bold;
+    padding: 20px;
+    background-color: black;
+    border-radius: 10px;
+}
 form {
     align-items: start;
     display: flex;
@@ -47,11 +57,11 @@ form {
 
 form > input {
     border: 1px solid white;
-    background-color: transparent;
+    background-color: white;
+    color: black;
     border-radius: 5px;
     padding: 3%;
     width: 50vh;
-    color: white;
 }
 
 form > button {

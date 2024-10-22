@@ -12,9 +12,6 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class MahasiswaController extends Controller
 {
     public function index() {
-        return view("admin.dashboard.index");
-    }
-    public function data_mahasiswa() {
         $data = Mahasiswa::all();
         return view("admin.mahasiswa.index", compact('data'));
     }
