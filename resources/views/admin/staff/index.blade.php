@@ -39,10 +39,9 @@
             <tr>
                 <th>NIM</th>
                 <th>NAMA</th>
-                <th>KODE PRODI</th>
+                <th>Kode Prodi</th>
                 <th>Semester</th>
-                <th>KELAS</th>
-                <th>NIP</th>
+                <th>ID KELAS</th>
                 <th>NO HP</th>
             </tr>
         </thead>
@@ -54,12 +53,11 @@
                     <td>{{$mhs->kode_prodi}} || {{$mhs->prodi->nama_prodi}}</td>
                     <td>{{$mhs->semester}}</td>
                     <td>{{$mhs->kelas->abjad_kelas}}</td>
-                    <td>{{$mhs->dosen_pembimbing->nip}}</td>
                     <td>{{$mhs->no_hp}}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <a href="{{route('insert-mahasiswa')}}">Tambah Akun Mahasiswa</a>
+    <a href="{{route('tambah-data-mahasiswa')}}">Tambah Akun Mahasiswa</a>
 @endsection

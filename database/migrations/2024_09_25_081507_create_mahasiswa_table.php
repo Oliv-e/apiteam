@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kode_prodi');
             $table->integer('semester');
             $table->integer('id_kelas');
-            $table->integer('nip');
+            $table->bigInteger('nip');
             $table->string('no_hp');
             $table->timestamps();
         });
