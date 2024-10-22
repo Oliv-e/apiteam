@@ -52,10 +52,10 @@ class User extends Authenticatable
         if (Auth::check() && Auth::user()->role == 'mahasiswa') {
             return $this->belongsTo(Mahasiswa::class, 'id', 'nim');
         }
-        // else if (Auth::check() && Auth::user()->role == 'dosen') {
-        //     return $this->belongsTo(Dosen::class,'id', 'nip');
-        // } else {
-        //     return $this->belongsTo(Admin::class,'id', 'no_admin');
-        // }
+        else if (Auth::check() && Auth::user()->role == 'dosen') {
+            return $this->belongsTo(Dosen::class,'id', 'nip');
+        } else {
+            return $this->belongsTo(StaffAdmin::class,'id', 'id_admin');
+        }
     }
 }
