@@ -3,9 +3,10 @@
 @section('title', 'Dashboard')
 
 @section('route', 'Dashboard')
-
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
+@endsection
 @section('content')
-<link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
         <div class="card">
             <h2>{{$data['mhs']}}</h2>
             <span>Mahasiswa Aktif</span>

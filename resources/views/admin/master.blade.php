@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'MasterAdmin')</title>
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
+    <link rel="shortcut icon" href="{{asset('css/assets/logopolnep.png')}}" type="image/x-icon">
     @yield('css')
 </head>
 <body>
