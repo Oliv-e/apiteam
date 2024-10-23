@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Rps;
 use App\Models\Infomatkul;
+use App\Models\Jadwalpelaksanaan;
 
 class rpsController extends BaseController
 {
@@ -156,26 +157,40 @@ class rpsController extends BaseController
     }
 
     // Fungsi untuk menghapus data RPS (Delete)
-    public function destroy($id) {
-        try {
-            // Menemukan data RPS berdasarkan id
-            $rps = Rps::find($id);
-            if (is_null($rps)) {
-                return $this->sendError('Data RPS tidak ditemukan');
-            }
+    // public function destroy($id) {
+    //     try {
+    //         // Menemukan data RPS berdasarkan id
+    //         $rps = Rps::find($id);
+    //         if (is_null($rps)) {
+    //             return $this->sendError('Data RPS tidak ditemukan');
+    //         }
 
-            // Menghapus data
-            $rps->delete();
+    //         // Menghapus data
+    //         $rps->delete();
 
-            return $this->sendResponse([], 'Data RPS berhasil dihapus');
-        } catch (\Exception $e) {
-            return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
-        }
-    }
+    //         return $this->sendResponse([], 'Data RPS berhasil dihapus');
+    //     } catch (\Exception $e) {
+    //         return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
+    //     }
+    // }
 
 
     // fungsi untuk mengampil data infomarsi matakuliah
     public function infomatkul(Request $request) {
+        try {
+            // Mengambil semua data RPS dari database
+            $data = infomatkul::all();
+    
+            // Jika data berhasil ditemukan, kembalikan dengan pesan sukses
+            return $this->sendResponse($data, 'Data RPS berhasil ditampilkan');
+        } catch (\Exception $e) {
+            // Jika terjadi error, kembalikan pesan error
+            return $this->sendError('Gagal menampilkan data RPS', $e->getMessage());
+        }
+    }
+    
+
+    public function infomatkul_create(Request $request) {
         try {
             // Validasi input yang diterima
             $data = $request->validate([
@@ -208,13 +223,27 @@ class rpsController extends BaseController
                 'buku_referensi' => $request->buku_referensi,
             ]);
 
-            return $this->sendResponse([], 'Data RPS berhasil dihapus');
+            return $this->sendResponse($data, 'Data RPS berhasil ditambahkan');
         } catch (\Exception $e) {
-            return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
+            return $this->sendError('Gagal menampilkan data RPS', $e->getMessage());
         }
     }
 
-    public function jadwal_pelaksanaan(Request $request){
+    //tampilkan jadwal pelaksanaan
+    public function jadwal_pelaksanaan(Request $request) {
+        try {
+            // Mengambil semua data RPS dari database
+            $data = Jadwalpelaksanaan::all();
+     
+            // Jika data berhasil ditemukan, kembalikan dengan pesan sukses
+            return $this->sendResponse($data, 'Data RPS berhasil ditampilkan');
+        } catch (\Exception $e) {     
+            // Jika terjadi error, kembalikan pesan error
+            return $this->sendError('Gagal menampilkan data RPS', $e->getMessage());
+        }
+    }
+
+    public function jadwal_pelaksanaan_create(Request $request){
         try {
             // validasi input yang diterima
             $data = $request->validate([
@@ -230,10 +259,23 @@ class rpsController extends BaseController
 
             ]);
 
+            JadwalPelaksanaan::create([
+                'minggu_ke' => $request->minggu_ke,
+                'waktu' => $request->waktu,
+                'cp_tahapan_matkul' => $request->cp_tahapan_matkul,
+                'bahan_kajian' => $request->bahan_kajian,
+                'sub_bahan_kajian' => $request->sub_bahan_kajian,
+                'bentuk_pembelajaran' => $request->bentuk_pembelajaran,
+                'kriteria_penilaian' => $request->kriteria_penilaian,
+                'pengalaman_belajar' => $request->pengalaman_belajar,
+                'bobot_materi' => $request->bobot_materi,
+                'referensi' => $request->referensi,
+            ]);
+
             // fungsi untuk membuat data rekomendasi baru
 
 
-            return $this->sendResponse([], 'Data RPS berhasil dihapus');
+            return $this->sendResponse($data, 'Data RPS berhasil ditambahkan');
         } catch (\Exception $e) {
             return $this->sendError('Gagal menghapus data RPS', $e->getMessage());
         }
