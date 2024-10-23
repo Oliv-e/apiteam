@@ -20,6 +20,12 @@ class Mahasiswa extends Model
         'no_hp',
     ];
 
+    public function janji_temu() {
+        return $this->hasMany(JanjiTemu::class, 'nim', 'nim');
+    }
+    public function rekomendasi() {
+        return $this->hasMany(Rekomendasi::class, 'nim', 'nim');
+    }
     public function prodi() {
         return $this->belongsTo(Prodi::class, 'kode_prodi', 'kode_prodi');
     }
