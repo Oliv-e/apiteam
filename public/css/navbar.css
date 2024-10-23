@@ -12,6 +12,9 @@
     align-items: center;
     justify-content: space-between;
 }
-.nav-content > h3 {
+.error {
     color: red;
+}
+.success {
+    color: greenyellow;
 }
