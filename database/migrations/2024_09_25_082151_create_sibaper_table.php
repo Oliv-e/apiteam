@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('berita_acara', function (Blueprint $table) {
-            // $table->integer('nip')->primary();
-            $table->bigInteger('nip')->primary();
+            $table->integer('id')->primary();
+            $table->bigInteger('nip');
             $table->integer('id_jadwal');
             $table->integer('id_rps');
             $table->dateTime('tanggal');

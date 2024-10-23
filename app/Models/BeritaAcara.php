@@ -9,7 +9,6 @@ class BeritaAcara extends Model
 {
     use HasFactory;
     protected $table = 'berita_acara';
-    protected $primaryKey = 'nip'; 
 
     protected $fillable = [
         'nip',
@@ -18,7 +17,7 @@ class BeritaAcara extends Model
         'tanggal',
         'media',
         'jam_ajar',
-        'pertemuan',
+        'minggu_ke',
         'status'
     ];
         public function matkul()

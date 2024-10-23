@@ -26,7 +26,7 @@ class rps extends Model
         'waktu',
         'cp_tahapan_matkul',
         'bahan_kajian',
-        'sub_bahan_kajian',
+        'sub_bahan_kajian', 
         'bentuk_pembelajaran',
         'pengalaman_belajar ',
         'kriteria_penilaian',

@@ -14,9 +14,11 @@ Route::get('/', function() {
     return redirect()->route('api-data-sibaper');
 });
 Route::get('/data/Sibaper', [SibaperController::class , 'Homepage'])->name('api-data-sibaper');
-Route::get('/data/Sibaper/{nip}', [SibaperController::class , 'Homepage'])->name('api-data-sibaper');
-Route::get('/data/Sibaper/historypage/{nip}', [SibaperController::class, 'Historypage'])->name('api-data-sibaper');
-Route::get('/data/Sibaper/filter', [SibaperController::class, 'filter'])->name('jadwal.filter');
+Route::get('/data/sibaper/Homepage', [SibaperController::class , 'Homepage'])->name('api-data-sibaper');
+Route::get('/data/Sibaper/historypage', [SibaperController::class, 'Historypage'])->name('api-data-sibaper');
+// Route::get('/data/Sibaper/filter', [SibaperController::class, 'filter'])->name('jadwal.filter');
+Route::post('/data/BeritaAcara/tambah', [SibaperController::class, 'berita_acara_create']);
+
 
 Route::get('/data/kelas', [SibaperController::class , 'kelas'])->name('api-data-kelas-sibaper');
 Route::post('/data/Kelas/tambah', [KelasController::class , 'kelas'])->name('api-data-kelas-sibaper-tambah');
@@ -35,11 +37,11 @@ Route::post('/data/ruang/tambah', [RuangController::class , 'ruang'])->name('api
 
 Route::get('/kelas-by-dosen-by-today', [SibaperController::class, 'kelas_by_dosen_today']);
 
-// Route::get('/data/BeritaAcara/show/{id}', [BeritaAcaraController::class, 'berita_acara_show']);
-Route::get('/data/BeritaAcara', [BeritaAcaraController::class , 'berita_acara'])->name('api-data-berita-acara-sibaper');
-Route::post('/data/BeritaAcara/tambah', [BeritaAcaraController::class , 'berita_acara_create'])->name('api-data-berita-acara-sibaper-tambah');
-Route::post('/data/BeritaAcara/update/{nip}', [BeritaAcaraController::class, 'berita_acara_update']);
-Route::delete('/data/BeritaAcara/hapus/{nip}', [BeritaAcaraController::class, 'berita_acara_hapus']);
+// // Route::get('/data/BeritaAcara/show/{id}', [BeritaAcaraController::class, 'berita_acara_show']);
+// Route::get('/data/BeritaAcara', [BeritaAcaraController::class , 'berita_acara'])->name('api-data-berita-acara-sibaper');
+// Route::post('/data/BeritaAcara/tambah', [BeritaAcaraController::class , 'berita_acara_create'])->name('api-data-berita-acara-sibaper-tambah');
+// Route::post('/data/BeritaAcara/update/{nip}', [BeritaAcaraController::class, 'berita_acara_update']);
+// Route::delete('/data/BeritaAcara/hapus/{nip}', [BeritaAcaraController::class, 'berita_acara_hapus']);
 
 
 Route::get('/data/rps', [RpsController::class, 'index']); // Untuk mengambil semua data RPS

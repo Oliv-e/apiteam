@@ -1,70 +1,70 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+// namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\BaseController;
-use Illuminate\Http\Request;
-use App\Models\BeritaAcara;
-use App\Models\Jadwal;
-use App\Models\rps;
+// use App\Http\Controllers\Api\BaseController;
+// use Illuminate\Http\Request;
+// use App\Models\BeritaAcara;
+// use App\Models\Jadwal;
+// use App\Models\rps;
 
-class BeritaAcaraController extends BaseController
-{
-    public function berita_acara()
-    {
-        //harus connect ke database rps dulu
-        $data = BeritaAcara::select([
-            'nip',
-            'id_jadwal',
-            'id_rps',
-            'tanggal',
-            'media',
-            'jam_ajar',
-            'status'
-        ])->with([
-            'jadwal' => function ($q) {
-                $q->select(['id_jadwal','semester' ]);
-            }
-        ])->with([
-            'rps' => function ($q) {
-                $q->select(['id_rps','minggu_ke','bahan_kajian','sub_bahan_kajian']);
-            }
-        ])->get();
-        return $this->sendResponse($data, 'sukses mengambil data');
-    }
+// class BeritaAcaraController extends BaseController
+// {
+//     public function berita_acara()
+//     {
+//         //harus connect ke database rps dulu
+//         $data = BeritaAcara::select([
+//             'nip',
+//             'id_jadwal',
+//             'id_rps',
+//             'tanggal',
+//             'media',
+//             'jam_ajar',
+//             'status'
+//         ])->with([
+//             'jadwal' => function ($q) {
+//                 $q->select(['id_jadwal','semester' ]);
+//             }
+//         ])->with([
+//             'rps' => function ($q) {
+//                 $q->select(['id_rps','minggu_ke','bahan_kajian','sub_bahan_kajian']);
+//             }
+//         ])->get();
+//         return $this->sendResponse($data, 'sukses mengambil data');
+//     }
 
-    public function berita_acara_create(Request $request)
-    {
-        try{
-        $data = $request->validate([
-            'nip' => 'required',
-            'id_jadwal' => 'required',
-            'id_rps' => 'required',
-            'tanggal' => 'required',
-            'media' => 'required',
-            'jam_ajar' => 'required',
-            'status' => 'required'
-        ]);
-        $beritaacara = BeritaAcara::updateOrCreate(
-            ['nip' => $request->nip], // kondisi untuk mencari data yang ada
-            $data // data yang akan diinsert atau diupdate
-        );
+//     public function berita_acara_create(Request $request)
+//     {
+//         try{
+//         $data = $request->validate([
+//             'nip' => 'required',
+//             'id_jadwal' => 'required',
+//             'id_rps' => 'required',
+//             'tanggal' => 'required',
+//             'media' => 'required',
+//             'jam_ajar' => 'required',
+//             'status' => 'required'
+//         ]);
+//         $beritaacara = BeritaAcara::updateOrCreate(
+//             ['nip' => $request->nip], // kondisi untuk mencari data yang ada
+//             $data // data yang akan diinsert atau diupdate
+//         );
 
-        return $this->sendResponse($beritaacara, 'Sukses membuat atau memperbarui Data!');
-    } catch (\Exception $e) {
-        return $this->sendError('Gagal membuat data', $e->getMessage());
-    }
-        BeritaAcara::create([
-            'nip' => $request->nip,
-            'id_jadwal' => $request->id_jadwal,
-            'id_rps' => $request->id_rps,
-            'tanggal' => $request->tanggal,
-            'media' => $request->media,
-            'jam_ajar' => $request->jam_ajar,
-            'status' => $request->status
-        ]);
-        return $this->sendResponse($data, 'Sukses membuat Data!');
-    }
+//         return $this->sendResponse($beritaacara, 'Sukses membuat atau memperbarui Data!');
+//     } catch (\Exception $e) {
+//         return $this->sendError('Gagal membuat data', $e->getMessage());
+//     }
+//         BeritaAcara::create([
+//             'nip' => $request->nip,
+//             'id_jadwal' => $request->id_jadwal,
+//             'id_rps' => $request->id_rps,
+//             'tanggal' => $request->tanggal,
+//             'media' => $request->media,
+//             'jam_ajar' => $request->jam_ajar,
+//             'status' => $request->status
+//         ]);
+//         return $this->sendResponse($data, 'Sukses membuat Data!');
+//     }
     // public function berita_Acara_show($nip) {
     //     try {
     //         $beritaAcara = beritaAcara::find($nip);
@@ -125,4 +125,4 @@ class BeritaAcaraController extends BaseController
     //         'message' => 'Data Berita Acara tidak ditemukan',
     //     ], 404);
     // }
-}
+//}
