@@ -124,78 +124,24 @@ class DosenController extends BaseController
     }
 
     //form janji temu
-    // public function janji_temu_create(Request $request)
-    // {
-    //     $nip = Auth::user()->id;
-
-    //     $data = $request->validate([
-    //         'nim' => 'required',
-    //         'tanggal' => 'required',
-    //         'materi' => 'required',
-    //         'status' => 'required'
-    //     ]);
-
-    //     JanjiTemu::create([
-    //         'nim' => $request->nim,
-    //         'tanggal' => $request->tanggal,
-    //         'materi' => $request->materi,
-    //         'status' => $request->status
-    //     ]);
-
-    //     return $this->sendResponse($data, 'Sukses Membuat Data untuk mahasiswa yang dipilih!');
-    // }
-
-    //form janji temu mhs all or array
-    use Illuminate\Database\Eloquent\ModelNotFoundException;
-
     public function janji_temu_create(Request $request)
     {
-        $nip = Auth::user()->id; // Ambil ID dosen yang sedang login
+        $nip = Auth::user()->id;
 
         $data = $request->validate([
-            'nim' => 'nullable|array', // Nim bisa berupa array atau null (jika untuk semua mahasiswa)
-            'tanggal' => 'required|date',
+            'nim' => 'required',
+            'tanggal' => 'required',
             'materi' => 'required',
-            'status' => 'nullable|string' // Status bisa null dan default menjadi 'Aktif'
+            'status' => 'required'
         ]);
 
-        $status = $request->status ?? 'Aktif'; // Jika status tidak diisi, default ke 'Aktif'
-
-        // Jika nim tidak diisi, buat janji untuk semua mahasiswa bimbingan dosen
-        $mhs = empty($data['nim']) ? $this->getAllStudentsForLecturer($nip) : $data['nim'];
-
-        // Cek jika tidak ada mahasiswa ditemukan
-        if (empty($mhs)) {
-            return $this->sendError('Tidak ada mahasiswa ditemukan untuk NIP ini.', 404);
-        }
-
-        // Gunakan Eloquent untuk menangani transaksi
-        try {
-            foreach ($mhs as $nim) {
-                JanjiTemu::create([
-                    'nim' => $nim,
-                    'tanggal' => $request->tanggal,
-                    'materi' => $request->materi,
-                    'status' => $status
-                ]);
-            }
-        } catch (\Exception $e) {
-            return $this->sendError('Gagal membuat janji temu: ' . $e->getMessage(), 500);
-        }
+        JanjiTemu::create([
+            'nim' => $request->nim,
+            'tanggal' => $request->tanggal,
+            'materi' => $request->materi,
+            'status' => $request->status
+        ]);
 
         return $this->sendResponse($data, 'Sukses Membuat Data untuk mahasiswa yang dipilih!');
-    }
-
-    private function getAllStudentsForLecturer($nip)
-    {
-        // Fungsi untuk mengambil semua mahasiswa bimbingan dosen berdasarkan NIP
-        $students = Mahasiswa::where('nip', $nip)->pluck('nim')->toArray();
-
-        if (empty($students)) {
-            // Handle the case where no students are found
-            return []; // atau handle sesuai kebutuhan
-        }
-
-        return $students;
     }
 }
