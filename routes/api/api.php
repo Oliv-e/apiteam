@@ -12,13 +12,6 @@ Route::post('/login', [AAC::class, 'login']);
         ROUTE::post('/logout', [AAC::class, 'logout']);
     });
 
-Route::get('/rps', [rpsController::class, 'index']);
-Route::get('/referensi', [ReferensiController::class, 'index'] );
-
-Route::post('/referensi_create', [ReferensiController::class, 'create']);
-Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
-
-
 Route::middleware(['auth:sanctum'])->group( function () {
     // bagian mahasiswa
     Route::get('/mahasiswa', [IntegrationController::class , 'mahasiswa']);
@@ -32,19 +25,20 @@ Route::middleware(['auth:sanctum'])->group( function () {
     Route::post('/dosen', [IntegrationController::class, 'dosen_create']);
 
     // bagian admin
+    Route::get('/admin');
 
 
 
     Route::prefix('sibaper')->group(function() {
-        require __DIR__ .'\sibaper.php';
+        require __DIR__ .'/sibaper.php';
     });
     Route::prefix('arsip')->group(function() {
-        require __DIR__ .'\arsip.php';
+        require __DIR__ .'/arsip.php';
     });
     Route::prefix('perwalian')->group(function() {
-        require __DIR__ .'\perwalian.php';
+        require __DIR__ .'/perwalian.php';
     });
     Route::prefix('rps')->group(function() {
-        require __DIR__ .'\rps.php';
+        require __DIR__ .'/rps.php';
     });
 });

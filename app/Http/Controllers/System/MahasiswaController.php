@@ -46,9 +46,9 @@ class MahasiswaController extends Controller
                 ]);
             });
 
-            return redirect()->route('dosen')->with('success','Data Berhasil Ditambahkan');
+            return redirect()->route('mahasiswa')->with('success','Data Berhasil Ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->route('dosen')->with('error', 'Data Gagal Ditambahkan');
+            return redirect()->route('mahasiswa')->with('error', 'Data Gagal Ditambahkan');
         }
     }
 }
