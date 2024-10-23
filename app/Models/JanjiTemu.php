@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class JanjiTemu extends Model
 {
     use HasFactory;
-    protected $table    = 'janji_temu';
-    protected $fillable = [
+    protected $table        = 'janji_temu';
+    protected $primaryKey   = 'nim';
+    protected $fillable     = [
         'nim',
         'tanggal',
         'materi',
@@ -18,6 +19,6 @@ class JanjiTemu extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
+        return $this->hasMany(Mahasiswa::class, 'nim', 'nim');
     }
 }
