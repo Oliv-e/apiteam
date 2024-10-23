@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('id_tandai');
             $table->integer('id_user');
             $table->integer('id_dokumen');
+            $table->string('marked_at');
             $table->timestamps();
         });
 
