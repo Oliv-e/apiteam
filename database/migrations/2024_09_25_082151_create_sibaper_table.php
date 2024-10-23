@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('berita_acara', function (Blueprint $table) {
             // $table->integer('nip')->primary();
-            $table->integer('nip');
             $table->bigInteger('nip')->primary();
             $table->integer('id_jadwal');
             $table->integer('id_rps');
