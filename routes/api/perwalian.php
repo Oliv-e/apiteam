@@ -39,3 +39,10 @@ Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delet
 
 
 
+
+Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
+Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
+
+
+
+
