@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\JanjiTemuController;
 use App\Http\Controllers\Api\KHSController;
 use App\Http\Controllers\Api\KonsultasiController;
 use App\Http\Controllers\Api\Perwalian\DosenController;
+use App\Http\Controllers\Api\Perwalian\MhsController;
 use App\Http\Controllers\Api\RekomendasiController;
 use App\Http\Controllers\System\DosenController as SystemDosenController;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,9 @@ Route::get('/d/janjitemu', [DosenController::class, 'janji_temu']);
 Route::get('/d/mahasiswa', [DosenController::class, 'mhs_bimbingan']);
 Route::get('/d/rekomendasi', [DosenController::class, 'rekomendasi']);
 Route::post('/d/janjitemu/tambah', [DosenController::class, 'janji_temu_create']);
+
 //api mahasiswa
-Route::post('/m/janjitemu-tambah', [JanjiTemuController::class, 'janji_temu_create']);
+Route::post('/m/janjitemu', [MhsController::class, 'janji_temu']);
 
 Route::post('/konsul-tambah', [KonsultasiController::class, 'konsul_create']);
 Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);

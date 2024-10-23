@@ -14,33 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DosenController extends BaseController
 {
-    //tampilkan data konsultasi-ermintaan janji temu
-    public function konsul()
-    {
-        $data = Konsultasi::select([
-            'nim',
-            'tanggal',
-            'materi'
-        ])->with([
-            'mahasiswa' => function ($q) {
-                $q->select(['nim', 'nama', 'semester', 'id_kelas', 'no_hp'])->with([
-                    'kelas' => function ($que) {
-                        $que->select(['id_kelas', 'abjad_kelas']);
-                    }
-                ]);
-            }
-        ])->get();
-
-        // Sembunyikan id_kelas di mahasiswa dan kelas
-        $data->each(function ($item) {
-            $item->mahasiswa->makeHidden('nim');
-            $item->mahasiswa->makeHidden('id_kelas');
-            $item->mahasiswa->kelas->makeHidden('id_kelas');
-        });
-
-        return $this->sendResponse($data, 'Sukses mengambil data');
-    }
-
     //display permintaan janji temu
     public function janji_temu()
     {
