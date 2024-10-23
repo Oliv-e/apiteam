@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('berita_acara', function (Blueprint $table) {
-            $table->integer('nip')->primary();
+            // $table->integer('nip')->primary();
+            $table->integer('nip');
             $table->integer('id_jadwal');
             $table->integer('id_rps');
             $table->dateTime('tanggal');
             $table->string('media');
             $table->time('jam_ajar');
-            $table->integer('pertemuan');
-            $table->enum('status', ['onprocess', 'complete'])->default('onprocess');
+            $table->integer('minggu_ke');
+            $table->enum('status', ['onprocess', 'complete','notstarted '])->default('notstarted');
             $table->timestamps();
         });
 

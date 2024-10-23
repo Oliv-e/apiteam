@@ -8,62 +8,69 @@ use App\Models\Kelas;
 use App\Models\BeritaAcara;
 use App\Models\jadwal;
 use App\Models\ruang;
+use App\Models\Dosen;
+
 
 class SibaperController extends BaseController
 {
-    public function kelas(Request $request)
+    public function Homepage($nip)
     {
-       
-        $data = Kelas::select('id_kelas', 'abjad_kelas')
-            ->with([
-                'matkul','dosen'  
-            ])
-            ->get();
+        $data = BeritaAcara::where('nip',$nip)
+        ->select([
+            'nip',
+            'id_jadwal',
+        ])->with([
+            'jadwal' => function ($q) {
+                $q->select(['id_jadwal','semester','start','finish','id_kelas'])
+                ->with(['kelas'=>function($que){
+                    $que->select(['id_kelas','abjad_kelas',]);
+                }]);
+            }
+        ])->with([
+            'dosen' => function ($q) {
+                $q->select(['nip','nama',]);
+            }
+        ])->get();
+        if($data->isEmpty()){
+            return response()->json([
+                'success'=> false,
+                'message'=>'data tidak ditemukan',
+            ],404);
+        }
+        $data->each(function($item){
+            $item -> makehidden(['id_jadwal']);
+            $item ->jadwal -> makehidden(['id_jadwal','id_kelas']);
+            $item->jadwal->kelas->makeHidden(['id_kelas']);
+            $item ->dosen -> makehidden(['nip']);
+            });
+        return $this->sendResponse($data, 'sukses mengambil data');
+        }
 
-   
-        return $this->SendResponse($data,'Sukses Mengambil Data');
-    }
-    
-    public function BeritaAcara(Request $request)
-    {
-   
-    //$data = BeritaAcara::select('nip', 'id_jadwal', 'tanggal', 'id_rps', 'media', 'jam_ajar')
-    $data = BeritaAcara::select('nip', 'id_jadwal', 'tanggal', 'id_rps', 'media', 'jam_ajar')
-        ->with([
-            'matkul', 
-            'dosen',   
-            'rps',     
-            'jadwal'   
-        ])
-        ->get();
 
-   
-    return $this->SendResponse($data, 'Sukses Mengambil Data');
-    }
 
-    public function jadwal(Request $request)
-    {
-   
-    $data = jadwal::select('id_jadwal','id_kelas','kode_matkul','id_ruang','hari','start','finish', 'semester',  )
-        ->with([
-            'matkul',  
-            'kelas',   
-            'ruang'  
-        ])
-        ->get();
-    return $this->SendResponse($data, 'Sukses Mengambil Data');
-    }
-    
-    public function ruang(Request $request)
-    {
-   
-    $data = ruang::select('id_ruang','nama_ruang' )
-        ->with([
-             
-        ])
-        ->get();
+        public function Historypage($nip){
+            {
+                $data = BeritaAcara::where('nip',$nip)
+                ->select([
+                    'minggu_ke',
+                    'nip',
+                    'id_jadwal',
+                    'tanggal',
+                    // 'nama_matkul',
+                    // 'pokok_bahasan',
+                    // 'sub_pokok_bahasan',
+                    'status',
+                ])->get();
+        
+                    if ($data->isEmpty()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'data tidak ditemukan',
+                        ], 404); }}
 
-   
-    return $this->SendResponse($data, 'Sukses Mengambil Data');
-    }
-}
+                        $data->each(function($item){
+                        $item -> makehidden(['nip','id_jadwal']);
+                    });
+                return $this->sendResponse($data, 'sukses mengambil data history');
+            }
+        }

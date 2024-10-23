@@ -9,18 +9,21 @@ class BeritaAcara extends Model
 {
     use HasFactory;
     protected $table = 'berita_acara';
+    protected $primaryKey = 'nip'; 
 
     protected $fillable = [
         'nip',
         'id_jadwal',
-        'tanggal',
         'id_rps',
+        'tanggal',
         'media',
         'jam_ajar',
+        'pertemuan',
+        'status'
     ];
         public function matkul()
         {
-            return $this->belongsTo(Matkul::class, 'id_matkul', 'id');  
+            return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');  
         }
     
        
@@ -32,13 +35,13 @@ class BeritaAcara extends Model
        
         public function rps()
         {
-            return $this->belongsTo(RPS::class, 'id_rps', 'id'); 
+            return $this->belongsTo(RPS::class, 'id_rps', 'id_rps'); 
         }
     
    
         public function jadwal()
         {
-            return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id'); 
+            return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id_jadwal'); 
         }
 
         

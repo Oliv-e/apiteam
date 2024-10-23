@@ -21,13 +21,14 @@ class rps extends Model
         'cp_matkul',
         'bobot_penilaian',
         'metode_penilaian',
+        'buku_referensi',
         'minggu_ke',
         'waktu',
         'cp_tahapan_matkul',
         'bahan_kajian',
         'sub_bahan_kajian',
         'bentuk_pembelajaran',
-        'bahan_pembelajaran',
+        'pengalaman_belajar ',
         'kriteria_penilaian',
         'bobot_materi',
         'tanggal_pembuatan',
@@ -50,4 +51,5 @@ class rps extends Model
     {
         return $this->belongsTo(Matkul::class, 'kode_matkul',   'kode_matkul');
     }
+
 }
