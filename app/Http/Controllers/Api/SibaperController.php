@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\BeritaAcara;
@@ -15,6 +16,7 @@ class SibaperController extends BaseController
 {
     public function Homepage($nip)
     {
+        $nip = auth()->user()->id;
         $data = BeritaAcara::where('nip',$nip)
         ->select([
             'nip',

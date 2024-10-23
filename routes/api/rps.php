@@ -6,9 +6,12 @@ use App\Http\Controllers\Api\RpsController;
 use App\Http\Controllers\Api\ReferensiController;
 
 //Route::get('dosen', [DosenController::class, 'index']);
-Route::get('rps', [RpsController::class, 'index']);
-Route::get('referensi', [ReferensiController::class, 'index'] );
-Route::post('referensi_create', [ReferensiController::class, 'create']);
+
+Route::get('/rps', [rpsController::class, 'index']);
+Route::get('/referensi', [ReferensiController::class, 'index'] );
+
+Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
+Route::post('/referensi_create', [ReferensiController::class, 'create']);
 
 
 // Route untuk CRUD Rps

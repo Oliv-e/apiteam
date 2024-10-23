@@ -33,6 +33,8 @@ Route::post('/data/matkul/tambah', [MatkulController::class , 'matkul'])->name('
 Route::get('/data/ruang', [RuangController::class , 'ruang'])->name('api-data-ruang-sibaper');
 Route::post('/data/ruang/tambah', [RuangController::class , 'ruang'])->name('api-data-ruang-sibaper-tambah');
 
+Route::get('/kelas-by-dosen-by-today', [SibaperController::class, 'kelas_by_dosen_today']);
+
 // Route::get('/data/BeritaAcara/show/{id}', [BeritaAcaraController::class, 'berita_acara_show']);
 Route::get('/data/BeritaAcara', [BeritaAcaraController::class , 'berita_acara'])->name('api-data-berita-acara-sibaper');
 Route::post('/data/BeritaAcara/tambah', [BeritaAcaraController::class , 'berita_acara_create'])->name('api-data-berita-acara-sibaper-tambah');

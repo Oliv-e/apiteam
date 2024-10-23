@@ -2,11 +2,17 @@
 
 @section('title', 'Dashboard')
 
+@section('route', 'Dashboard')
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
+@endsection
 @section('content')
-    @if(Auth::check())
-        {{Auth::user()->id}}
-        <h2>LOGGED IN</h2>
-    @endif
-
-    <a href="{{route('data-mahasiswa')}}">Data Mahasiswa</a>
+        <div class="card">
+            <h2>{{$data['mhs']}}</h2>
+            <span>Mahasiswa Aktif</span>
+        </div>
+        <div class="card">
+            <h2>{{$data['dsn']}}</h2>
+            <span>Dosen Aktif</span>
+        </div>
 @endsection

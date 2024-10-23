@@ -1,8 +1,8 @@
 @extends('admin.master')
 
-@section('title', 'Data Mahasiswa')
+@section('title', 'Data Dosen')
 
-@section('route', 'Data Mahasiswa')
+@section('route', 'Data Dosen')
 @section('css')
     <style>
         .content {
@@ -56,35 +56,27 @@
 
     <div class="content">
         <div class="content-link">
-            <a href="{{route('insert-mahasiswa')}}">
-                <iconify-icon icon="fluent-mdl2:insert-rows-below"></iconify-icon> Akun & Data Mahasiswa
+            <a href="{{route('insert-dosen')}}">
+                <iconify-icon icon="fluent-mdl2:insert-rows-below"></iconify-icon> Akun & Data Dosen
             </a>
-            <input type="text" id="search" placeholder="Ketikkan NAMA atau NIM">
+            <input type="text" id="search" placeholder="Ketikkan NAMA atau NIP">
         </div>
 
         <div class="table-container">
-            <table id="mahasiswa-table">
+            <table id="dosen-table">
                 <thead>
                     <tr>
-                        <th>NIM</th>
-                        <th>NAMA</th>
-                        <th>KODE PRODI</th>
-                        <th>Semester</th>
-                        <th>KELAS</th>
                         <th>NIP</th>
+                        <th>NAMA</th>
                         <th>NO HP</th>
                     </tr>
                 </thead>
-                <tbody id="mahasiswa-table-body">
-                    @foreach($data as $mhs)
+                <tbody id="dosen-table-body">
+                    @foreach($data as $dsn)
                         <tr>
-                            <td>{{$mhs->nim}}</td>
-                            <td>{{$mhs->nama}}</td>
-                            <td>{{$mhs->kode_prodi}} || {{$mhs->prodi->nama_prodi}}</td>
-                            <td>{{$mhs->semester}}</td>
-                            <td>{{$mhs->kelas->abjad_kelas}}</td>
-                            <td>{{$mhs->dosen_pembimbing->nip}}</td>
-                            <td>{{$mhs->no_hp}}</td>
+                            <td>{{$dsn->nip}}</td>
+                            <td>{{$dsn->nama}}</td>
+                            <td>{{$dsn->no_hp}}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -94,7 +86,7 @@
 
     <script>
         const searchInput = document.getElementById('search');
-        const tableBody = document.getElementById('mahasiswa-table-body');
+        const tableBody = document.getElementById('dosen-table-body');
 
         searchInput.addEventListener('keyup', () => {
             const searchValue = searchInput.value.toLowerCase();

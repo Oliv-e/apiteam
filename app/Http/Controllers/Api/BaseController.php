@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class BaseController extends Controller
 {
+    public function getNamaHari() {
+        // fungsi memanggil nama
+        Carbon::setLocale('id');
+        $today = Carbon::now();
+        return $today->translatedFormat('l');
+    }
     public function sendResponse($res, $msg) {
         $res = [
             'success' => true,
