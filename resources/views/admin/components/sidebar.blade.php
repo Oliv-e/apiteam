@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="logout-menu">
-            <a href="#" class="link">
+            <a href="{{route('logout')}}" class="link">
                 <iconify-icon icon="bx:log-out"></iconify-icon>
                 <span>LOGOUT</span>
             </a>
