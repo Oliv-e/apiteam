@@ -10,7 +10,7 @@
     <h1>LOGIN SI KOPI</h1>
     <span>SISTEM APLIKASI KELOLA API</span>
     @if($errors->has('err'))
-    <div class="error">
+    <div class="error" id="error">
         {{ $errors->first('err') }}
     </div>
     @endif
@@ -30,5 +30,8 @@
     document.getElementById('upwform').addEventListener('input', function (e) {
         document.getElementById('upwlabel').classList.remove('hidden');
     });
+    setTimeout(() => {
+        document.getElementById('error').style.display = 'none';
+    }, 2000);
 </script>
 @endsection
