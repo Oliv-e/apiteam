@@ -20,4 +20,8 @@ class Matkul extends Model
     public function rps(){
         return $this->hasMany(Rps::class, 'kode_matkul', 'kode_matkul');
         }
+    public function matkul(){
+        return $this->belongsTo(Matkul::class, 'nama_matkul', 'nama_matkul');
+    }
+    
 }

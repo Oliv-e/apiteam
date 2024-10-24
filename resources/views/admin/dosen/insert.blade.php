@@ -2,32 +2,65 @@
 
 @section('title', 'Import Data Dosen')
 
+@section('route', 'Insert Data Dosen')
+
 @section('css')
 <style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+    }
+    table, th, td {
+        border: 1px solid black;
+        background-color: #fff;
     }
     th, td {
-        border: 1px solid black;
-        padding: 2px 5px
+        padding: 5px;
+        text-align: center
     }
-    .navbar {
+    .content-link {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .content-link a {
+        background-color: white;
         padding: 10px;
-        background: rgb(70, 255, 246);
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        gap: 10px
+    }
+    input {
+        border: 1px solid black;
+        background: #fff;
+        padding: 5px;
+        border-radius: 5px
+    }
+    button {
+        padding: 7.5px;
+        border: 1px solid black;
+        background: greenyellow;
+        border-radius: 5px
+    }
+    button:hover {
+        background: green;
+        color: white
     }
 </style>
 @endsection
 
 @section('content')
 
-    <div class="navbar">
-        @if(Auth::check())
-            Halo, {{Auth::user()->data_pribadi->nama}} <br> <a href="{{route('logout')}}">LOG OUT</a>
-        @endif
-    </div>
-    <h2>TEMPLATE EXCEL</h2>
+<div class="content-link">
+    <a href="{{route('dosen')}}">
+        <iconify-icon icon="mingcute:back-line"></iconify-icon> Kembali
+    </a>
+</div>
     <table>
         <thead>
             <tr>
@@ -48,20 +81,18 @@
             </tr>
             <tr>
                 <td>2</td>
-                <td>1XXXXXXXXXXXXXXXX1</td>
-                <td>XXXXX</td>
+                <td>32022160XX</td>
+                <td>OXXXX</td>
                 <td>XX@gmail.com</td>
-                <td>XXXXX</td>
+                <td>XXXXXXXX</td>
             </tr>
         </tbody>
     </table>
 
-    <form action="{{route('import-dosen')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('insert-dosen')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="file">
         <button type="submit">Import</button>
     </form>
 
-
-    <a href="{{route('dosen')}}">Data Dosen</a>
 @endsection

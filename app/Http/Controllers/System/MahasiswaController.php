@@ -12,9 +12,6 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class MahasiswaController extends Controller
 {
     public function index() {
-        return view("admin.dashboard.index");
-    }
-    public function data_mahasiswa() {
         $data = Mahasiswa::all();
         return view("admin.mahasiswa.index", compact('data'));
     }
@@ -49,9 +46,9 @@ class MahasiswaController extends Controller
                 ]);
             });
 
-            return redirect()->route('dosen')->with('success','Data Berhasil Ditambahkan');
+            return redirect()->route('mahasiswa')->with('success','Data Berhasil Ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->route('dosen')->with('error', 'Data Gagal Ditambahkan');
+            return redirect()->route('mahasiswa')->with('error', 'Data Gagal Ditambahkan');
         }
     }
 }
