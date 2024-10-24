@@ -21,7 +21,7 @@ class SibaperController extends BaseController
         $nip = auth()->user()->id;
     
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
-        $data = BeritaAcara::where('nip', $nip)
+        $data =BeritaAcara ::where('nip', $nip)
             ->select(['nip', 'id_jadwal'])
             ->with([
                 'jadwal' => function ($q) {
@@ -59,7 +59,8 @@ class SibaperController extends BaseController
         // Kembalikan respons sukses
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
-        public function Historypage($nip){
+        public function Historypage(){
+            $nip = auth()->user()->id;
             {
                 $data = BeritaAcara::where('nip',$nip)
                 ->select([

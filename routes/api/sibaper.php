@@ -13,10 +13,8 @@ use App\Http\Controllers\Api\RpsController;
 Route::get('/', function() {
     return redirect()->route('api-data-sibaper');
 });
-Route::get('/data/Sibaper', [SibaperController::class , 'Homepage'])->name('api-data-sibaper');
-Route::get('/data/sibaper/Homepage', [SibaperController::class , 'Homepage'])->name('api-data-sibaper');
-Route::get('/data/Sibaper/historypage', [SibaperController::class, 'Historypage'])->name('api-data-sibaper');
-// Route::get('/data/Sibaper/filter', [SibaperController::class, 'filter'])->name('jadwal.filter');
+Route::get('/data/homepage', [SibaperController::class, 'Homepage'])->name('api-data-sibaper-homepage');
+Route::get('/data/historypage', [SibaperController::class, 'Historypage'])->name('api-data-sibaper');
 Route::post('/data/BeritaAcara/tambah', [SibaperController::class, 'berita_acara_create']);
 
 
