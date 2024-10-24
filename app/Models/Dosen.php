@@ -21,6 +21,9 @@ class Dosen extends Model
     {
         return $this->hasMany(Rps::class, 'nip', 'nip');
     }
+    public function mahasiswa() {
+        return $this->hasMany(Mahasiswa::class, 'nip','nip');
+    }
 
     public function berita_acara()
     {

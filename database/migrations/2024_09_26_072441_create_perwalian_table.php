@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('konsultasi', function (Blueprint $table) {
-            // $table->id();
+            $table->integer('id')->primary();
             $table->bigInteger('nim');
             $table->dateTime('tanggal');
             $table->text('materi');
@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
         Schema::create('khs', function (Blueprint $table) {
-            //$table->id();
+            $table->integer('id')->primary();
             $table->bigInteger('nim');
             $table->integer('semester');
             $table->string('tahun_ajaran');
@@ -29,9 +29,9 @@ return new class extends Migration
         });
 
         Schema::create('rekomendasi', function (Blueprint $table) {
-            //$table->id('id_rek');
+            $table->integer('id')->primary();
             $table->bigInteger('nim');
-            $table->string('jenis_rekomendasi');
+            $table->enum('jenis_rekomendasi', ['SO', 'DO', 'Aktif'])->default('Aktif');
             $table->dateTime('tanggal_pengajuan');
             $table->dateTime('tanggal_persetujuan');
             $table->text('keterangan');
@@ -40,7 +40,7 @@ return new class extends Migration
         });
 
         Schema::create('janji_temu', function (Blueprint $table) {
-            //$table->id();
+            $table->integer('id')->primary();
             $table->bigInteger('nim');
             $table->dateTime('tanggal');
             $table->text('materi');
