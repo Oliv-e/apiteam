@@ -3,6 +3,7 @@
 @section('title', 'Data Dosen')
 
 @section('route', 'Data Dosen')
+
 @section('css')
     <style>
         .content {

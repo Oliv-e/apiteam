@@ -23,7 +23,7 @@
             <a href="{{route('dosen')}}" class="link data hidden">
                 <span>Dosen</span>
             </a>
-            <a href="#" class="link data hidden">
+            <a href="{{route('staff')}}" class="link data hidden">
                 <span>Staff Admin</span>
             </a>
         </div>
