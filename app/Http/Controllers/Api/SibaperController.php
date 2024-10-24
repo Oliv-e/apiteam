@@ -18,7 +18,7 @@ class SibaperController extends BaseController
 {
     public function Homepage()
     {
-        $nip = auth()->user()->id;
+        $nip = Auth::user()->id;
     
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
         $data =BeritaAcara ::where('nip', $nip)
@@ -60,7 +60,7 @@ class SibaperController extends BaseController
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
         public function Historypage(){
-            $nip = auth()->user()->id;
+            $nip = Auth::user()->id;
             {
                 $data = BeritaAcara::where('nip',$nip)
                 ->select([
