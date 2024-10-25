@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\IntegrationController;
-use App\Http\Controllers\Api\RpsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ReferensiController;
 use App\Http\Controllers\Auth\ApiAuthController as AAC;
 
 Route::post('/login', [AAC::class, 'login']);

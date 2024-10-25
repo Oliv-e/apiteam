@@ -13,7 +13,6 @@ Route::get('/referensi', [ReferensiController::class, 'index'] );
 Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
 Route::post('/referensi_create', [ReferensiController::class, 'create']);
 
-
 // Route untuk CRUD Rps
 Route::get('/rps/{id}', [RpsController::class, 'show']); // Read RPS
 Route::post('/rps', [RpsController::class, 'create']); // Create RPS

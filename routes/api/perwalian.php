@@ -1,18 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\DosenController as ApiDosenController;
-use App\Http\Controllers\Api\JanjiTemuController;
 use App\Http\Controllers\Api\KHSController;
 use App\Http\Controllers\Api\KonsultasiController;
 use App\Http\Controllers\Api\Perwalian\DosenController;
 use App\Http\Controllers\Api\Perwalian\MhsController;
 use App\Http\Controllers\Api\RekomendasiController;
-use App\Http\Controllers\System\DosenController as SystemDosenController;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/', function () {
-//     echo "TEST";
-// });
 
 // Route untuk mengambil data rekomendasi
 
@@ -35,10 +28,6 @@ Route::post('/m/janjitemu', [MhsController::class, 'janji_temu']);
 Route::post('/konsul-tambah', [KonsultasiController::class, 'konsul_create']);
 Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
 Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
-
-
-
-
 
 Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
 Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
