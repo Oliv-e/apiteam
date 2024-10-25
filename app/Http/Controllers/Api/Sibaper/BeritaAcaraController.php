@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
@@ -91,13 +91,13 @@ class BeritaAcaraController extends BaseController
                     'media' => 'required',
                     'jam_ajar' => 'required',
                     'status' => 'required'
-                    
+
                 ]);
                 $beritaacara = BeritaAcara::find($nip);
                 if (is_null($beritaacara)) {
                     return $this->sendError('Data beritaAcara tidak ditemukan');
                 }
-                
+
                 return $this->sendResponse($beritaacara, 'Data berita Acara berhasil diperbarui');
         } catch(\Exception $e) {
             return $this->sendError('Gagal memperbarui data berita Acara', $e->getMessage());

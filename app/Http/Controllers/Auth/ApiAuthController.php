@@ -16,9 +16,9 @@ class ApiAuthController extends BaseController
     public function login(Request $request) {
         if(Auth::attempt(['id' => $request->id, 'password' => $request->password])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $success['nama'] = $user->data_pribadi->nama;
-            $success['role'] = $user->role;
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken; // global
+            $success['nama'] = $user->data_pribadi->nama; // kebutuhan kelompok ridho
+            $success['role'] = $user->role; // kebutuhan kelompok iqbal
 
             return $this->sendResponse($success, 'Berhasil Login');
         }

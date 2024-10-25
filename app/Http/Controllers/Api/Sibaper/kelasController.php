@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class kelasController extends BaseController
         $data = Kelas::select([
             'id_kelas',
             'abjad_kelas',
-            
+
         ])->get();
         return $this->sendResponse($data, 'sukses mengambil data');
     }
@@ -23,11 +23,11 @@ class kelasController extends BaseController
             'id_kelas'=>'required',
             'abjad_kelas'=>'required',
         ]);
-    
+
     Kelas::create([
         'id_kelas'=>$request -> id_kelas,
         'abjad_kelas' =>$request -> abjad_kelas
-        
+
     ]);
         return $this->sendResponse($data, 'Sukses membuat Data!');
     }

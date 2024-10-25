@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class ruangController extends BaseController
         $data = Ruang::select([
             'id_ruang',
             'nama_ruang',
-            
+
         ])->get();
         return $this->sendResponse($data, 'sukses mengambil data');
     }
@@ -23,11 +23,11 @@ class ruangController extends BaseController
             'id_ruang'=>'required',
             'nama_ruang'=>'required',
         ]);
-    
+
     Ruang::create([
         'id_ruang'=>$request -> id_ruang,
         'nama_ruang' =>$request -> nama_ruang
-        
+
     ]);
         return $this->sendResponse($data, 'Sukses membuat Data!');
     }

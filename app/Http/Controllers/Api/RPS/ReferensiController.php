@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\RPS;
 
 use App\Models\Referensi;
 use App\Http\Controllers\Api\BaseController;
@@ -31,14 +31,14 @@ class ReferensiController extends BaseController
         ]);
 
         // Membuat data baru berdasarkan input yang divalidasi
-        // $referensi = 
+        // $referensi =
         Referensi::create([
             'buku_referensi' => $request -> buku_referensi
         ]);
 
         return $this->sendResponse($data, 'Data referensi berhasil dibuat');
         // try {
-            
+
         // } catch (\Exception $e) {
         //     return $this->sendError('Gagal membuat data referensi', $e->getMessage());
         // }
@@ -80,7 +80,7 @@ class ReferensiController extends BaseController
         }
     }
 
-    
+
     // Fungsi untuk menghapus data referensi (Delete)
     public function destroy($id) {
         try {

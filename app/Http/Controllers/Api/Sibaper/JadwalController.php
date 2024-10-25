@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;

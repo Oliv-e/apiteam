@@ -2,13 +2,6 @@
 
 use App\Http\Controllers\Api\IntegrationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\ApiAuthController as AAC;
-
-Route::post('/login', [AAC::class, 'login']);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/register', [AAC::class, 'register']);
-        ROUTE::post('/logout', [AAC::class, 'logout']);
-    });
 
 Route::middleware(['auth:sanctum'])->group( function () {
     // bagian mahasiswa
@@ -23,8 +16,8 @@ Route::middleware(['auth:sanctum'])->group( function () {
     Route::post('/dosen', [IntegrationController::class, 'dosen_create']);
 
     // bagian admin
-    Route::get('/admin');
-
+    Route::get('/admin', [IntegrationController::class, 'StaffAdmin']);
+    Route::post('/StaffAdmin_tambah', [IntegrationController::class,'StaffAdmin_create']);
 
 
     Route::prefix('sibaper')->group(function() {

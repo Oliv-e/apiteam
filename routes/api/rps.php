@@ -1,38 +1,49 @@
 <?php
 
-// use App\Http\Controllers\Api\DosenController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\RpsController;
-use App\Http\Controllers\Api\ReferensiController;
+use App\Http\Controllers\Api\RPS\RpsController;
+use App\Http\Controllers\Api\RPS\ReferensiController;
+use App\Http\Controllers\Api\RPS\JadwalController;
+use App\Http\Controllers\Api\RPS\MatkulController;
 
-//Route::get('dosen', [DosenController::class, 'index']);
+Route::prefix('')->group( function () { // uri : api/rps
+    // GET SECTION
+    Route::get('/', [RpsController::class, 'index']); // uri : api/rps/
+    Route::get('/{id}', [RpsController::class, 'show']); // uri : api/rps/{id}
+    // POST SECTION
+    Route::post('/create', [RpsController::class, 'create']); // uri : api/rps/create
+    Route::post('/update/{id}', [RpsController::class, 'update']); // uri : api/rps/update/{id}
+    Route::post('/delete/{id}', [RpsController::class, 'delete']); // uri : api/rps/delete
+});
 
-Route::get('/rps', [rpsController::class, 'index']);
-Route::get('/referensi', [ReferensiController::class, 'index'] );
+Route::prefix('referensi')->group( function () {
+    // GET SECTION
+    Route::get('/', [ReferensiController::class, 'index'] ); // uri : api/rps/referensi
+    // POST SECTION
+    Route::post('/create', [ReferensiController::class, 'create']);  // uri : api/rps/referensi/create
+    Route::post('/update/{id}', [ReferensiController::class, 'update']); // uri : api/rps/referensi/update/{id}
+});
 
-Route::post('/rps_create', [rpsController::class, 'create']); // Create RPS
-Route::post('/referensi_create', [ReferensiController::class, 'create']);
+Route::prefix('infomatkul')->group( function () {
+    // GET SECTION
+    Route::get('/', [MatkulController::class, 'infomatkul']); // uri : api/rps/infomatkul
+    // POST SECTION
+    Route::post('/create', [MatkulController::class, 'infomatkul_create']); // uri : api/rps/infomatkul/create
+    Route::post('/update/{id}', [MatkulController::class, 'infomatkul_update']); // uri : api/rps/infomatkul/update/{id}
+    Route::post('/delete/{id}', [MatkulController::class, 'infomatkul_delete']); // uri : api/rps/infomatkul/delete/{id}
+});
 
-// Route untuk CRUD Rps
-Route::get('/rps/{id}', [RpsController::class, 'show']); // Read RPS
-Route::post('/rps_create', [RpsController::class, 'create']); // Create RPS
-Route::put('/rps/{id}', [RpsController::class, 'update']); // Update RPS
-Route::delete('/rps', [RpsController::class, 'destroy']); // Delete RPS
+Route::prefix('jadwal')->group( function () {
+    // GET SECTION
+    Route::get('/', [JadwalController::class, 'jadwal_pelaksanaan']); // uri : api/rps/jadwal
+    // POST SECTION
+    Route::post('/create', [JadwalController::class, 'jadwal_pelaksanaan_create']); // uri : api/rps/jadwal/create
+    Route::post('/update/{id}', [JadwalController::class, 'jadwal_pelaksanaan_update']); // uri : api/rps/jadwal/update/{id}
+    Route::post('/delete/{id}', [JadwalController::class, 'jadwal_pelaksanaan_delete']); // uri : api/rps/jadwal/delete/{id}
+});
 
-Route::put('/referensi/{id}', [ReferensiController::class, 'update']); // Update Referensi
-
-
-Route::get('/infomatkul', [RpsController::class, 'infomatkul']);
-Route::post('/infomatkul/tambah', [RpsController::class, 'infomatkul_create']);
-Route::get('/jadwal_pelaksanaan', [RpsController::class, 'jadwal_pelaksanaan']);
-Route::post('/jadwal_pelaksanaan/tambah', [RpsController::class, 'jadwal_pelaksanaan_create']);
-
-// Route::get('/rps/infomatkul',)
-Route::post('/infomatkul/update/{id_infomatkul}', [RpsController::class, 'infomatkul_update']);
-Route::delete('/infomatkul/delete/{id}', [RpsController::class, 'infomatkul_delete']);
-
-Route::post('/jadwal_pelaksanaan/update/{id_jadwal_pelaksanaan}', [RpsController::class, 'jadwal_pelaksanaan_update']);
-Route::delete('/jadwal_pelaksanaan/delete/{id}', [RpsController::class, 'jadwal_pelaksanaan_delete']);
-
+// Changelist Log --
+// Mengganti routing dengan prefix
+// Mengganti metode delete pada route hapus , metode put pada route update menjadi metode post
 
 

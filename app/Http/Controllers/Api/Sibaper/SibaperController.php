@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Carbon\Carbon;
@@ -19,7 +19,7 @@ class SibaperController extends BaseController
     public function Homepage()
     {
         $nip = Auth::user()->id;
-    
+
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
         $data =BeritaAcara ::where('nip', $nip)
             ->select(['nip', 'id_jadwal'])
@@ -35,7 +35,7 @@ class SibaperController extends BaseController
                 }
             ])
             ->get();
-    
+
         // Cek apakah data kosong
         if ($data->isEmpty()) {
             return response()->json([
@@ -43,7 +43,7 @@ class SibaperController extends BaseController
                 'message' => 'Data tidak ditemukan',
             ], 404);
         }
-    
+
         // Sembunyikan kolom yang tidak perlu
         $data->each(function ($item) {
             $item->makeHidden(['id_jadwal']);
@@ -55,7 +55,7 @@ class SibaperController extends BaseController
             }
             $item->dosen->makeHidden(['nip']);
         });
-    
+
         // Kembalikan respons sukses
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
@@ -73,7 +73,7 @@ class SibaperController extends BaseController
                     // 'sub_pokok_bahasan',
                     'status',
                 ])->get();
-        
+
                     if ($data->isEmpty()) {
                         return response()->json([
                             'success' => false,
@@ -103,7 +103,7 @@ class SibaperController extends BaseController
             'status' => 'required' // Ensure status is one of the allowed values
         ]);
 
-      
+
         // Create a new BeritaAcara entry
         $beritaacara = BeritaAcara::create([
             'nip' => $nip, // Automatically use the logged-in user's NIP
@@ -114,7 +114,7 @@ class SibaperController extends BaseController
             'jam_ajar' => $data['jam_ajar'],
             'minggu_ke' => $data['minggu_ke'],
             'status' => $data['status']
-            
+
         ]);
         $beritaacara->makeHidden(['id','updated_at','created_at'],);
 

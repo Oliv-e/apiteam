@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Sibaper;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class DosenController extends BaseController
                     $q->select(['nip', ]);
                 }
         ])->get();
-        
+
         return $this->sendResponse($data, 'sukses mengambil data');
     }
     public function dosen_create(Request $request){
@@ -29,14 +29,14 @@ class DosenController extends BaseController
             'nip'=>'required',
             // 'is_kaprodi'=>'required',
             'nama'=>'required',
-            'no_hp'=>'required',    
+            'no_hp'=>'required',
         ]);
-    
+
     Dosen::create([
         'nip'=>$request -> nip,
         'nama'=>$request -> nama,
         'no_hp'=>$request -> no_hp,
-        
+
     ]);
         return $this->sendResponse($data, 'Sukses membuat Data!');
     }

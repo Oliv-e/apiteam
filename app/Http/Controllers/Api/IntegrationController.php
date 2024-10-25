@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Models\StaffAdmin;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -37,12 +38,10 @@ class IntegrationController extends BaseController
         }
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
-
     public function mahasiswa_by_id($id) {
         $data = Mahasiswa::where('nim', $id)->get();
         return $this->sendResponse($data, 'Data Berhasil diambil');
     }
-
     public function mahasiswa_create(Request $request) {
         $data = $request->validate([
             'id' => 'required',
@@ -80,13 +79,11 @@ class IntegrationController extends BaseController
 
         return $this->sendResponse($data, 'Sukses Membuat Data');
     }
-
     public function dosen() {
         $data = Dosen::all();
 
         return $this->sendResponse($data, 'Data berhasil diambil!');
     }
-
     public function dosen_create(Request $request) {
         $data = $request->validate([
             'id' => 'required',
@@ -116,7 +113,6 @@ class IntegrationController extends BaseController
 
         return $this->sendResponse($data, 'Data dan Akun dosen berhasil disimpan!');
     }
-
     public function mahasiswa_update(Request $request, $id) {
         $data = $request->validate([
             'nim',
@@ -146,11 +142,27 @@ class IntegrationController extends BaseController
 
         return $this->sendResponse($request->id, 'Data sukses di ubah!');
     }
-
     public function mahasiswa_delete($id) {
         Mahasiswa::where('nim', $id)->delete();
         User::where('id', $id)->delete();
 
         return $this->sendResponse('Sukses Menghapus Data', 'YEY!');
+    }
+    public function StaffAdmin(){
+        $data = StaffAdmin::all();
+        return $this->SendResponse($data,'Sukses mengambil data');
+    }
+    public function StaffAdmin_create(Request $request){
+        $data = $request->validate([
+            'id_admin'=> 'required',
+            'nama'=> 'required',
+            'no_hp'=> 'required'
+        ]);
+        StaffAdmin::create([
+            'id_admin'=>$request->id_admin,
+            'nama'=>$request->nama,
+            'no_hp'=>$request->no_hp
+        ]);
+        return $this->sendResponse($data, 'Sukses Memuat Data!');
     }
 }

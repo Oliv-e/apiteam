@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class infomatkul extends Model
+class Infomatkul extends Model
 {
 
     use HasFactory;
@@ -13,7 +13,7 @@ class infomatkul extends Model
     // Nama tabel di database
     protected $table = 'infomatkul';
     protected $primary  = 'id';
-    
+
     protected $fillable = [
         'nama_matkul',
         'kode_matkul',
