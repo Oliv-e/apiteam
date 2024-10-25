@@ -5,7 +5,7 @@ body {
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .btn {
     font-weight: bold;
@@ -46,7 +46,8 @@ body, html {
     color: red;
     font-weight: bold;
     padding: 20px;
-    background-color: rgb(60, 60, 60);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
     border-radius: 10px;
 }
 form {
@@ -66,7 +67,7 @@ form > input {
 
 form > button {
     border: 1px solid white;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     padding: 3%;
     width: 53.5vh;

@@ -9,6 +9,7 @@ class KHS extends Model
 {
     use HasFactory;
     protected $table    = 'khs';
+    protected $primaryKey   = 'nim';
     protected $fillable = [
         'nim',
         'semester',

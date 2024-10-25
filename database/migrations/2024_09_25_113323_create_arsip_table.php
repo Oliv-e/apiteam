@@ -24,15 +24,6 @@ return new class extends Migration
             $table->string('upload_by');
             $table->timestamps();
         });
-        Schema::create('markeddokumen', function (Blueprint $table){
-            $table->id();
-            $table->integer('id_tandai');
-            $table->integer('id_user');
-            $table->integer('id_dokumen');
-            $table->timestamps();
-        });
-
-        
     }
 
     /**
