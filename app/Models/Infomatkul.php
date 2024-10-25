@@ -12,7 +12,8 @@ class infomatkul extends Model
 
     // Nama tabel di database
     protected $table = 'infomatkul';
-
+    protected $primary  = 'id';
+    
     protected $fillable = [
         'nama_matkul',
         'kode_matkul',
@@ -25,7 +26,6 @@ class infomatkul extends Model
         'bobot_penilaian',
         'metode_penilaian',
         'buku_referensi'
-       
     ];
 
     public function referensi()

@@ -19,7 +19,7 @@ return new class extends Migration
         });
 
         Schema::create('infomatkul', function(Blueprint $table) {
-            $table->id('id_infomatkul');  // Primary key
+            $table->id('id');  // Primary key
             $table->string('nama_matkul');
             $table->string('kode_matkul');
             $table->integer('semester');
@@ -36,7 +36,7 @@ return new class extends Migration
 
         // Membuat tabel jadwal_pelaksanaan
         Schema::create('jadwal_pelaksanaan', function (Blueprint $table) {
-            $table->id('i   d_jadwal');//jadikan primary dan auto inc
+            $table->id('id');//jadikan primary dan auto inc
             $table->integer('minggu_ke'); 
             $table->time('waktu');
             $table->text('cp_tahapan_matkul');
