@@ -1,8 +1,8 @@
 @extends('admin.master')
 
-@section('title', 'Import Data Dosen')
+@section('title', 'Tambah Data Dosen')
 
-@section('route', 'Insert Data Dosen')
+@section('route', 'Tambah Data Dosen')
 
 @section('css')
 <style>
