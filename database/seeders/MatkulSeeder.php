@@ -13,22 +13,22 @@ class MatkulSeeder extends Seeder
      */
     public function run(): void
     {
-        $matkul = [
-            [
-                'kode_matkul' => 'TIF10118',
-                'nama_matkul' => 'Pancasila',
-                'jumlah_jam' => 2,
-                'sks' => 2
-            ],[
-                'kode_matkul' => 'TIF10218',
-                'nama_matkul' => 'Matematika 1',
-                'jumlah_jam' => 3,
-                'sks' => 2
-            ]
-        ];
+        // $matkul = [
+        //     [
+        //         'kode_matkul' => 'TIF10118',
+        //         'nama_matkul' => 'Pancasila',
+        //         'jumlah_jam' => 2,
+        //         'sks' => 2
+        //     ],[
+        //         'kode_matkul' => 'TIF10218',
+        //         'nama_matkul' => 'Matematika 1',
+        //         'jumlah_jam' => 3,
+        //         'sks' => 2
+        //     ]
+        // ];
 
-        foreach ($matkul as $data) {
-            Matkul::create($data);
-        }
+        // foreach ($matkul as $data) {
+        //     Matkul::create($data);
+        // }
     }
 }

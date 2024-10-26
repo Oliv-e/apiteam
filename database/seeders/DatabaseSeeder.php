@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +16,5 @@ class DatabaseSeeder extends Seeder
         $this->call(DosenSeeder::class);
         $this->call(KelasSeeder::class);
         $this->call(RuangSeeder::class);
-        $this->call(MatkulSeeder::class);
     }
 }

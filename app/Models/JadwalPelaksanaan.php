@@ -10,7 +10,7 @@ class JadwalPelaksanaan extends Model
 
     use HasFactory;
 
-    
+
     // Nama tabel di database
     protected $table = 'jadwal_pelaksanaan';
 
@@ -27,19 +27,19 @@ class JadwalPelaksanaan extends Model
         'referensi'
     ];
 
-    public function referensi()
-    {
-        return $this->belongsTo(Referensi::class, 'id_referensi', 'id_referensi');
-    }
+    // public function referensi()
+    // {
+    //     return $this->belongsTo(Referensi::class, 'id_referensi', 'id_referensi');
+    // }
 
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'nip', 'nip');
     }
 
-    public function matkul()
-    {
-        return $this->belongsTo(Matkul::class, 'kode_matkul',   'kode_matkul');
-    }
+    // public function matkul()
+    // {
+    //     return $this->belongsTo(Matkul::class, 'kode_matkul',   'kode_matkul');
+    // }
 }
 

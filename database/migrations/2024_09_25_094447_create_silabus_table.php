@@ -20,16 +20,15 @@ return new class extends Migration
 
         Schema::create('infomatkul', function(Blueprint $table) {
             $table->id('id');  // Primary key
-            $table->string('nama_matkul');
-            $table->string('kode_matkul');
+            $table->string('kode_mk');
             $table->integer('semester');
             $table->string('dosen');
-            $table->integer('sks'); 
-            $table->text('deskripsi'); 
-            $table->text('cp_prodi'); 
-            $table->text('cp_matkul'); 
-            $table->text('bobot_penilaian'); 
-            $table->text('metode_penilaian'); 
+            $table->integer('sks');
+            $table->text('deskripsi');
+            $table->text('cp_prodi');
+            $table->text('cp_matkul');
+            $table->text('bobot_penilaian');
+            $table->text('metode_penilaian');
             $table->text('buku_referensi');
             $table->timestamps(); // Membuat kolom created_at dan updated_at
         });
@@ -37,16 +36,16 @@ return new class extends Migration
         // Membuat tabel jadwal_pelaksanaan
         Schema::create('jadwal_pelaksanaan', function (Blueprint $table) {
             $table->id('id');//jadikan primary dan auto inc
-            $table->integer('minggu_ke'); 
+            $table->integer('minggu_ke');
             $table->time('waktu');
             $table->text('cp_tahapan_matkul');
-            $table->text('bahan_kajian'); 
-            $table->text('sub_bahan_kajian'); 
-            $table->text('bentuk_pembelajaran'); 
-            $table->text('kriteria_penilaian'); 
-            $table->text('pengalaman_belajar'); 
-            $table->text('bobot_materi'); 
-            $table->string(column: 'referensi'); 
+            $table->text('bahan_kajian');
+            $table->text('sub_bahan_kajian');
+            $table->text('bentuk_pembelajaran');
+            $table->text('kriteria_penilaian');
+            $table->text('pengalaman_belajar');
+            $table->text('bobot_materi');
+            $table->string('referensi');
             $table->timestamps(); // Menambahkan kolom created_at dan updated_at
         });
     }
@@ -80,7 +79,7 @@ return new class extends Migration
     // }
 
     /**
-     * Reverse the migrations. 
+     * Reverse the migrations.
      */
     public function down(): void
     {

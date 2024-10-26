@@ -15,8 +15,7 @@ class Infomatkul extends Model
     protected $primary  = 'id';
 
     protected $fillable = [
-        'nama_matkul',
-        'kode_matkul',
+        'kode_mk',
         'semester',
         'dosen',
         'sks',

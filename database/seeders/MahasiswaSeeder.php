@@ -39,15 +39,5 @@ class MahasiswaSeeder extends Seeder
         foreach ($prodi as $data) {
             Prodi::create($data);
         }
-
-        Mahasiswa::create([
-            'nim' => 3202216074,
-            'nama' => 'Oliver Dillon',
-            'kode_prodi' => 'TIF',
-            'semester'=> 5,
-            'id_kelas'=> 3,
-            'nip' => 198406112019031012,
-            'no_hp'=> '0895411898900',
-        ]);
     }
 }

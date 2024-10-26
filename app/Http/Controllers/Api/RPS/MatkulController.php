@@ -26,8 +26,7 @@ class MatkulController extends BaseController
         try {
             // Validasi input yang diterima
             $data = $request->validate([
-                'nama_matkul' => 'required',
-                'kode_matkul' => 'required',
+                'kode_mk' => 'required',
                 'semester' => 'required',
                 'dosen' => 'required',
                 'sks' => 'required',
@@ -42,8 +41,7 @@ class MatkulController extends BaseController
 
             // Membuat data baru berdasarkan input yang validasi
             Infomatkul::create([
-                'nama_matkul' => $request->nama_matkul,
-                'kode_matkul' => $request->kode_matkul,
+                'kode_mk' => $request->kode_mk,
                 'semester' => $request->semester,
                 'dosen' => $request->dosen,
                 'sks' => $request->sks,
@@ -65,8 +63,7 @@ class MatkulController extends BaseController
         try {
             // Validasi input yang diterima
             $data = $request->validate([
-                'nama_matkul' => 'required',
-                'kode_matkul' => 'required',
+                'kode_mk' => 'required',
                 'semester' => 'required',
                 'dosen' => 'required',
                 'sks' => 'required',

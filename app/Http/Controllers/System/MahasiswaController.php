@@ -12,22 +12,23 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class MahasiswaController extends Controller
 {
     public function index() {
-        $data = Mahasiswa::all();
+        $data = Mahasiswa::all()->sortBy('nim');
         return view("admin.mahasiswa.index", compact('data'));
     }
     public function insert() {
         return view("admin.mahasiswa.insert");
     }
     public function import(Request $request) {
+
         $file = $request->file('file');
         function alokasi_kelas($abjad) {
             $abjad = strtoupper($abjad);
             return ord($abjad) - 64;
         }
         try {
-            $dmhs = (new FastExcel())->import($file, function($line) {
-                if (User::where('id', $line['NIM'])->exists()) {
-                    throw new \Exception('Data Sudah Ada');
+            (new FastExcel())->import($file, function($line) {
+                if (User::where('id', $line['NIM'])->exists() || Mahasiswa::where('nim', $line['NIM'])->exists()) {
+                    return;
                 }
                 Mahasiswa::create([
                     'nim' => $line['NIM'],

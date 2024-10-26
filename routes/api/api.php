@@ -1,7 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\IntegrationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ApiAuthController as AAC;
+use App\Http\Controllers\Api\IntegrationController;
+
+Route::post('/login', [AAC::class, 'login']); // uri : api/login
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/register', [AAC::class, 'register']); // uri : api/register
+    Route::post('/logout', [AAC::class, 'logout']); // uri : api/logout
+});
+
 
 Route::middleware(['auth:sanctum'])->group( function () {
     // bagian mahasiswa
@@ -14,10 +22,14 @@ Route::middleware(['auth:sanctum'])->group( function () {
     // bagian dosen
     Route::get('/dosen', [IntegrationController::class, 'dosen']);
     Route::post('/dosen', [IntegrationController::class, 'dosen_create']);
+    Route::post('/dosen-update/{id}', [IntegrationController::class, 'dosen_update']);
+    Route::post('/dosen-delete/{id}', [IntegrationController::class, 'dosen_delete']);
 
     // bagian admin
     Route::get('/admin', [IntegrationController::class, 'StaffAdmin']);
-    Route::post('/StaffAdmin_tambah', [IntegrationController::class,'StaffAdmin_create']);
+    Route::post('/admin', [IntegrationController::class,'StaffAdmin_create']);
+    Route::post('/admin-update/{id}', [IntegrationController::class, 'admin_update']);
+    Route::post('/admin-delete/{id}', [IntegrationController::class, 'admin_delete']);
 
 
     Route::prefix('sibaper')->group(function() {

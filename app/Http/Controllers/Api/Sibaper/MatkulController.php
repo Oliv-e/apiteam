@@ -12,26 +12,36 @@ class MatkulController extends BaseController
     {
         //harus connect ke database rps dulu
         $data = Matkul::select([
-            'kode_matkul',
-            'nama_matkul',
-            'jumlah_jam',
-            'SKS',
+            'kode',
+            'nama',
+            'sks_teori',
+            'sks_praktikum',
+            'jam_teori',
+            'jam_praktikum',
         ])->get();
+        foreach ($data as $dat) {
+            $dat['sks_total'] = $dat['sks_teori'] + $dat['sks_praktikum'];
+            $dat['jam_total'] = $dat['jam_teori'] + $dat['jam_praktikum'];
+        }
         return $this->sendResponse($data, 'sukses mengambil data');
     }
     public function matkul_create(Request $request){
         $data = $request -> validate([
-            'kode_matkul'=>'required',
-            'nama_matkul'=>'required',
-            'jumlah_jam'=>'required',
-            'SKS'=>'required',
+            'kode'=>'required',
+            'nama'=>'required',
+            'sks_teori'=>'required',
+            'sks_praktikum'=>'required',
+            'jam_teori'=>'required',
+            'jam_praktikum'=>'required',
         ]);
 
         Matkul::create([
-            'kode_matkul'=>$request -> kode_matkul,
-            'nama_matkul' =>$request -> nama_matkul,
-            'jumlah_jam'=>$request -> jumlah_jam,
-            'sks'=>$request -> sks,
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'sks_teori' => $request->sks_teori,
+            'sks_praktikum' => $request->sks_praktikum,
+            'jam_teori' => $request->jam_teori,
+            'jam_praktikum' => $request->jam_praktikum
         ]);
         return $this->sendResponse($data, 'Sukses membuat Data!');
     }

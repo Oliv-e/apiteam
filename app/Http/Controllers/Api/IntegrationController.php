@@ -46,7 +46,6 @@ class IntegrationController extends BaseController
         $data = $request->validate([
             'id' => 'required',
             'nama' => 'required',
-            'role' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
@@ -59,7 +58,7 @@ class IntegrationController extends BaseController
 
         User::create([
             'id' => $request->id,
-            'role' => $request->role,
+            'role' => 'mahasiswa',
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
@@ -79,6 +78,41 @@ class IntegrationController extends BaseController
 
         return $this->sendResponse($data, 'Sukses Membuat Data');
     }
+    public function mahasiswa_update(Request $request, $id) {
+        $data = $request->validate([
+            'id',
+            'email' => 'email|unique:users',
+            'password',
+            'c_password' => 'same:password',
+            'kode_prodi',
+            'semester',
+            'id_kelas',
+            'nip',
+            'no_hp',
+        ]);
+        Mahasiswa::where('nim', $id)->update([
+            'nim' => $request->id,
+            'nama' => $request->nama,
+            'kode_prodi' => $request->kode_prodi,
+            'semester' => $request->semester,
+            'id_kelas' => $request->id_kelas,
+            'nip' => $request->nip,
+            'no_hp' => $request->no_hp
+        ]);
+        User::where('id', $id)->update([
+            'id' => $request->id,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return $this->sendResponse($request->id, 'Data sukses di ubah!');
+    }
+    public function mahasiswa_delete($id) {
+        Mahasiswa::where('nim', $id)->delete();
+        User::where('id', $id)->delete();
+
+        return $this->sendResponse('Sukses Menghapus Data', 'YEY!');
+    }
     public function dosen() {
         $data = Dosen::all();
 
@@ -88,7 +122,6 @@ class IntegrationController extends BaseController
         $data = $request->validate([
             'id' => 'required',
             'nama' => 'required',
-            'role' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'c_password' => 'required|same:password',
@@ -97,7 +130,7 @@ class IntegrationController extends BaseController
 
         User::create([
             'id' => $request->id,
-            'role' => $request->role,
+            'role' => 'dosen',
             'email' => $request->email,
             'password'  => $request->password
         ]);
@@ -113,37 +146,30 @@ class IntegrationController extends BaseController
 
         return $this->sendResponse($data, 'Data dan Akun dosen berhasil disimpan!');
     }
-    public function mahasiswa_update(Request $request, $id) {
+    public function dosen_update(Request $request, $id) {
         $data = $request->validate([
-            'nim',
-            'email' => 'email|unique:users',
-            'password',
-            'c_password' => 'same:password',
-            'kode_prodi',
-            'semester',
-            'id_kelas',
-            'nip',
-            'no_hp',
+            'id' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+            'no_hp' => 'required'
         ]);
-        Mahasiswa::where('nim', $id)->update([
-            'nim' => $request->nim,
+        Dosen::where('nip', $id)->update([
+            'nip' => $request->id,
             'nama' => $request->nama,
-            'kode_prodi' => $request->kode_prodi,
-            'semester' => $request->semester,
-            'id_kelas' => $request->id_kelas,
-            'nip' => $request->nip,
             'no_hp' => $request->no_hp
         ]);
         User::where('id', $id)->update([
-            'nim' => $request->nim,
+            'id' => $request->id,
             'email' => $request->email,
             'password' => $request->password,
         ]);
 
         return $this->sendResponse($request->id, 'Data sukses di ubah!');
     }
-    public function mahasiswa_delete($id) {
-        Mahasiswa::where('nim', $id)->delete();
+    public function dosen_delete($id) {
+        Dosen::where('nip', $id)->delete();
         User::where('id', $id)->delete();
 
         return $this->sendResponse('Sukses Menghapus Data', 'YEY!');
@@ -164,5 +190,33 @@ class IntegrationController extends BaseController
             'no_hp'=>$request->no_hp
         ]);
         return $this->sendResponse($data, 'Sukses Memuat Data!');
+    }
+    public function admin_update(Request $request, $id) {
+        $data = $request->validate([
+            'id' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+            'no_hp' => 'required'
+        ]);
+        StaffAdmin::where('id_admin', $id)->update([
+            'id_admin' => $request->id,
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp
+        ]);
+        User::where('id', $id)->update([
+            'id' => $request->id,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return $this->sendResponse($request->id, 'Data sukses di ubah!');
+    }
+    public function admin_delete($id) {
+        StaffAdmin::where('id_admin', $id)->delete();
+        User::where('id', $id)->delete();
+
+        return $this->sendResponse('Sukses Menghapus Data', 'YEY!');
     }
 }

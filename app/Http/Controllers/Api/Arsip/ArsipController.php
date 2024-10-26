@@ -27,7 +27,7 @@ class ArsipController extends BaseController
         return response()->json(['data'=> $dokumen, 'message'=> 'Sukses mengambil data'], 200);
     }
     public function getDokumenDitandai(){
-        $data = markeddokumen::select('id_tandai', 'id_user', 'id_dokumen', 'marked_at')->get();
+        $data = markeddokumen::select('id', 'id_dosen', 'id_dokumen')->get();
         return $this->SendResponse($data, 'Sukses mengambil data');
     }
     public function getDokumenFilter($id){

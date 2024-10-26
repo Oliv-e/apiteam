@@ -50,10 +50,12 @@ return new class extends Migration
         });
 
         Schema::create('matkul', function (Blueprint $table) {
-            $table->string('kode_matkul')->primary();
-            $table->string('nama_matkul');
-            $table->integer('jumlah_jam');
-            $table->integer('sks');
+            $table->string('kode')->primary();
+            $table->string('nama');
+            $table->integer('sks_teori');
+            $table->integer('sks_praktikum');
+            $table->integer('jam_teori');
+            $table->integer('jam_praktikum');
             $table->timestamps();
         });
     }
