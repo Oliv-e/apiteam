@@ -19,7 +19,6 @@ class SibaperController extends BaseController
     public function Homepage()
     {
         $nip = Auth::user()->id;
-    
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
         $data =BeritaAcara ::where('nip', $nip)
             ->select(['nip', 'id_jadwal'])
@@ -61,28 +60,33 @@ class SibaperController extends BaseController
     }
         public function Historypage(){
             $nip = Auth::user()->id;
-            {
+            
                 $data = BeritaAcara::where('nip',$nip)
                 ->select([
                     'minggu_ke',
                     'nip',
                     'id_jadwal',
                     'tanggal',
-                    // 'nama_matkul',
-                    // 'pokok_bahasan',
-                    // 'sub_pokok_bahasan',
+                    'nama_matkul',
+                    'bahan_kajian',
+                    'sub_bahan_kajian',
                     'status',
                 ])->get();
-        
+                foreach($data as $d) {
+                    $d->rps->pokok_bahasan;
+                    $d->rps->sub_pokok_bahasan;
+                }
+                
                     if ($data->isEmpty()) {
                         return response()->json([
                             'success' => false,
                             'message' => 'data tidak ditemukan',
-                        ], 404); }}
+                        ], 404);
 
-                        $data->each(function($item){
-                        $item -> makehidden(['nip','id_jadwal']);
-                    });
+                        // $data->each(function($item) {
+                        //     $item -> makehidden(['nip','id_jadwal']);
+                        // });
+                    }
                 return $this->sendResponse($data, 'sukses mengambil data history');
             }
 

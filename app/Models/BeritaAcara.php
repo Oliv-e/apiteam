@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Rps;
 
 class BeritaAcara extends Model
 {
@@ -20,6 +21,9 @@ class BeritaAcara extends Model
         'minggu_ke',
         'status'
     ];
+    public function rps(){
+        return $this->belongsTo(Rps::class, 'id_rps', 'id_rps');
+    }
         public function matkul()
         {
             return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');  
@@ -29,12 +33,6 @@ class BeritaAcara extends Model
         public function dosen()
         {
             return $this->belongsTo(Dosen::class, 'nip', 'nip'); 
-        }
-    
-       
-        public function rps()
-        {
-            return $this->belongsTo(RPS::class, 'id_rps', 'id_rps'); 
         }
     
    
