@@ -111,6 +111,7 @@ class DosenController extends BaseController
             'nim' => $request->nim,
             'tanggal' => $request->tanggal,
             'materi' => $request->materi,
+            'status' => 'Disetujui'
         ]);
 
         return $this->sendResponse($data, 'Sukses Membuat Data untuk mahasiswa yang dipilih!');
