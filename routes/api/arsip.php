@@ -16,6 +16,8 @@ Route::post('/markeddokumen_tambah', [ArsipController::class,'markeddokumen_crea
 Route::delete('/data/Dokumen_hapus/{id}', [ArsipController::class,'Dokumen_hapus']);
 Route::post('/data/Dokumen_update/{id}', [ArsipController::class,'Dokumen_update']);
 Route::get('/data/dokumen_satuan', [ArsipController::class,'satuan_dokumen']);
-Route::get('data/dokumen_filter/{id}', [ArsipController::class, 'dokumen_filter']);
+Route::get('data/dokumen_filter_kategori/{kategori}', [ArsipController::class, 'dokumen_filter_kategori']);
+Route::get('data/dokumen_filter_jenis_surat/{jenis_surat}', [ArsipController::class, 'dokumen_filter_jenis_surat']);
 Route::get('data/dokumen_nama', [ArsipController::class, 'dokumen_nama']);
-Route::get('data/download_Dokumen/{id}', [ArsipController::class, 'download_Dokumen']);
+Route::get('data/Dokumen_download/{id}', [ArsipController::class, 'Dokumen_download']);
+Route::get('/data/dokumen/by/dosen', [ArsipController::class , 'ambil_dokumen_yang_ditandai_dosen']);   

@@ -156,10 +156,10 @@ class ArsipController extends BaseController
 
         return response()->json(['data'=> $dokumen, 'message'=> 'Sukses mengambil data'], 200);
     }
-    public function dokumen_filter($id){
+    public function dokumen_filter_kategori($kategori){
 
     // Ambil dokumen yang sesuai dengan id_kategori dari tabel Dokumen
-        $dokumen = Dokumen::where('id_kategori', $id)->get();
+        $dokumen = Dokumen::where('kategori', $kategori)->get();
 
     // Cek apakah ada dokumen yang ditemukan
         if ($dokumen->isEmpty()) {
@@ -175,16 +175,16 @@ class ArsipController extends BaseController
             'data' => $dokumen
         ], 200);
     }
-    public function dokumen_nama($id){
+    public function dokumen_filter_jenis_surat($jenis_surat){
 
         // Ambil dokumen yang sesuai dengan id_kategori dari tabel Dokumen
-            $dokumen = Dokumen::where('nama_kategori', $id)->get();
+            $dokumen = Dokumen::where('jenis_surat', $jenis_surat)->get();
     
         // Cek apakah ada dokumen yang ditemukan
             if ($dokumen->isEmpty()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Tidak ada dokumen yang ditemukan untuk kategori ini.'
+                    'message' => 'Tidak ada dokumen yang ditemukan untuk jenis ini.'
                 ], 404);
             }
     
@@ -194,24 +194,39 @@ class ArsipController extends BaseController
                 'data' => $dokumen
             ], 200);
         }
-    public function download_Dokumen($id){
-    // Cari dokumen berdasarkan ID
-        $dokumen = Dokumen::find($id);
-
-    // Cek apakah dokumen ditemukan
+        public function Dokumen_download($id)
+        {
+            // Cari dokumen berdasarkan ID
+            $dokumen = Dokumen::find($id);
+        
+            // Periksa apakah dokumen ditemukan
             if (!$dokumen) {
-            return $this->sendError('Dokumen tidak ditemukan.');
+                return $this->sendError('Dokumen tidak ditemukan.', [], 404);
+            }
+        
+            // Tentukan path file yang ingin diunduh
+            $file_path = storage_path('app/' . $dokumen->file_path);
+        
+            // Periksa apakah file ada di storage
+            if (!file_exists($file_path)) {
+                return $this->sendError('File tidak ditemukan.', [], 404);
+            }
+        
+            // Kembalikan response download
+            return response()->download($file_path, $dokumen->judul);
         }
+        
+    public function ambil_dokumen_yang_ditandai_dosen() {
+        if (Auth::user()->role == 'dosen') {
+            $dosen_id = Auth::user()->id;
 
-    // Ambil file path dari dokumen
-        $filePath = $dokumen->file_path;
+            $dokumen = MarkedDokumen::where('id_dosen',$dosen_id)->get();
 
-    // Cek apakah file benar-benar ada di storage
-        if (!Storage::exists($filePath)) {
-            return $this->sendError('File tidak ditemukan.');
+            foreach ($dokumen as $doc) {
+                $doc->dokumen;
+            }
+
+            return $this->sendResponse($dokumen, 'Data sukses diambil');
         }
-
-    // Mengirimkan file ke client untuk didownload
-        return Storage::download($filePath, $dokumen->judul . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
     }
 }

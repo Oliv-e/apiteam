@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nama_kategori');
             $table->string('judul');
             $table->text('deskripsi');
+            $table->enum('kategori',['pendidikan', 'penelitian','pengabdian', 'lainnya']);
+            $table->enum('jenis_surat',['sk','st']);
             $table->string('file_path');
             $table->integer('nomor_unik');
             $table->string('upload_by');
