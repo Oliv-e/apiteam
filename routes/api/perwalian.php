@@ -32,13 +32,3 @@ Route::get('/m/janjitemu', [MhsController::class, 'janji_temu']);
 Route::post('/m/janjitemu/tambah', [MhsController::class, 'janji_temu_create']);
 Route::get('/m/rekomendasi', [MhsController::class, 'rekomendasi']);
 Route::post('/m/rekomendasi/tambah', [MhsController::class, 'rekomendasi_create']);
-
-// Route::post('/konsul-tambah', [KonsultasiController::class, 'konsul_create']);
-// Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
-// Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
-// Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
-// Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
-
-
-
-
