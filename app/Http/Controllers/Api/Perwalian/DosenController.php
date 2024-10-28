@@ -64,9 +64,9 @@ class DosenController extends BaseController
         // Kembalikan data permintaan janji temu
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
-
     //display konsul
-    public function konsul() {
+    public function konsul()
+    {
         // Ambil nip dari pengguna yang sedang login
         $nip = Auth::user()->id;
 
@@ -114,10 +114,10 @@ class DosenController extends BaseController
         $dosen = Dosen::where('nip', $nip)
         ->with(
             'mahasiswa:nim,nama,no_hp,semester,nip'
-        )->first(['nama','nip']);
+        )->first(['nama', 'nip']);
 
         // Sembunyikan nip pada relasi mahasiswa
-        foreach($dosen->mahasiswa as $mahasiswa) {
+        foreach ($dosen->mahasiswa as $mahasiswa) {
             $mahasiswa->makeHidden(['nip']);
         }
 
