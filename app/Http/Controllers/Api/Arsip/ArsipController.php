@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends BaseController
 {
+    // PR STORE GAMBAR --||__||--
     // GET SECTION
     public function getDokumen(){
         $data = Dokumen::select('id', 'id_admin','id_kategori','nama_kategori','judul', 'deskripsi', 'file_path', 'nomor_unik','upload_by')

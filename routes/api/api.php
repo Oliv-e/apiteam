@@ -1,17 +1,18 @@
 <?php
 
+use App\Http\Controllers\Api\Arsip\ArsipController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController as AAC;
 use App\Http\Controllers\Api\IntegrationController;
 
 Route::post('/login', [AAC::class, 'login']); // uri : api/login
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/register', [AAC::class, 'register']); // uri : api/register
-    Route::post('/logout', [AAC::class, 'logout']); // uri : api/logout
-});
 
+Route::get('/', [ArsipController::class,'getDokumen']); // uri : /api/arsip/dokumen/
 
 Route::middleware(['auth:sanctum'])->group( function () {
+    // Auth
+    Route::post('/register', [AAC::class, 'register']); // uri : api/register
+    Route::post('/logout', [AAC::class, 'logout']); // uri : api/logout
     // bagian mahasiswa
     Route::get('/mahasiswa', [IntegrationController::class , 'mahasiswa']);
     Route::get('/mahasiswa/{id}', [IntegrationController::class , 'mahasiswa_by_id']);

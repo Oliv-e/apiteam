@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\KHSController;
-use App\Http\Controllers\Api\KonsultasiController;
 use App\Http\Controllers\Api\Perwalian\DosenController;
 use App\Http\Controllers\Api\Perwalian\MhsController;
-use App\Http\Controllers\Api\RekomendasiController;
 use Illuminate\Support\Facades\Route;
 
 // Route untuk mengambil data rekomendasi

@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Arsip\ArsipController;
 
+// DONE
+
 Route::prefix('dokumen')->group( function () { // uri : /api/arsip/dokumen
     // GET SECTION
-    Route::get('/', [ArsipController::class,'getDokumen']); // uri : /api/arsip/dokumen/
     Route::get('/saya', [ArsipController::class,'getDokumenSaya']); // uri : /api/arsip/dokumen/saya , [Berdasarkan user yang sedang login]
     Route::get('/ditandai', [ArsipController::class,'getDokumenDitandai']); // uri : /api/arsip/dokumen/ditandai
     Route::get('/filter/{id}', [ArsipController::class, 'getDokumenFilter']); // uri : /api/arsip/dokumen/filter/{id} , [Berdasarkan id kategori]
