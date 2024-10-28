@@ -39,8 +39,8 @@ class DosenController extends BaseController
 
         // Jika ada permintaan untuk menyetujui janji temu
         if ($request->has('setujui')) {
-            $id = $request->input('setujui');
-            $janjiTemu = JanjiTemu::find($id);
+            $id_jt = $request->input('setujui');
+            $janjiTemu = JanjiTemu::where('id', $id_jt)->update(['status' => 'Disetujui']);
 
             if (!$janjiTemu) {
                 return $this->sendError('Janji temu tidak ditemukan');

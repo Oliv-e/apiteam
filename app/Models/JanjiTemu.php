@@ -9,7 +9,6 @@ class JanjiTemu extends Model
 {
     use HasFactory;
     protected $table        = 'janji_temu';
-    protected $primaryKey   = 'nim';
     protected $fillable     = [
         'nim',
         'tanggal',
