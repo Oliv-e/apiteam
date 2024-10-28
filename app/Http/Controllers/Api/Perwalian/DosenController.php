@@ -27,7 +27,7 @@ class DosenController extends BaseController
                     ]);
                 }
             ])->get(['nim', 'nama']);
-        
+
         if ($data->isEmpty()) {
             return $this->sendError('Data tidak ditemukan');
         }
@@ -41,12 +41,43 @@ class DosenController extends BaseController
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
 
+    // dsipaly konsultasi
+    public function konsul(){
+        $data = Konsultasi::select([
+            'konsultasi.tanggal',
+            'konsultasi.materi',
+        ])
+        ->join('janjitemu', 'konsultasi.nim', '=', 'janjitemu.nim') // Adjust join conditions as necessary
+        ->where('janjitemu.status', '=', 'Disetujui') // Ensure the status is set to 'disetujui'
+        ->with([
+            'mahasiswa' => function ($q) {
+                $q->select(['nim', 'nama', 'semester', 'no_hp']); // Adjusted to include only necessary fields
+            }
+        ])
+        ->get();
+
+        // Format the data to include additional fields directly in the response
+        $display = $data->map(function ($item) {
+            return [
+                'nim'       => $item->mahasiswa->nim,
+                'nama'      => $item->mahasiswa->nama,
+                'no_hp'     => $item->mahasiswa->no_hp,
+                'tanggal'   => $item->tanggal,
+                'semester'  => $item->mahasiswa->semester,
+                'materi'    => $item->materi,
+                'status'    => $item->janjitemu->status, // Assuming janjitemu is accessible, adjust if necessary
+            ];
+        });
+
+        return $this->sendResponse($display, 'Sukses mengambil data');
+    }
+
     //display mahasiswa bimbingan
     public function mhs_bimbingan()
     {
         // Ambil data janji temu berdasarkan nip dosen
         $nip = Auth::user()->id;
-        
+
         $dosen = Dosen::where('nip', $nip)
         ->with(
             'mahasiswa:nim,nama,no_hp,semester,nip'
