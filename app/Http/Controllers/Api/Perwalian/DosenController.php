@@ -27,7 +27,6 @@ class DosenController extends BaseController
                 }
             ])
             ->get(['nim', 'nama']);
-
         if ($data->isEmpty()) {
             return $this->sendError('Data tidak ditemukan');
         }
@@ -39,9 +38,9 @@ class DosenController extends BaseController
 
         // Jika ada permintaan untuk menyetujui janji temu
         if ($request->has('setujui')) {
-            $id = $request->input('setujui');
-            $janjiTemu = JanjiTemu::find($id);
-
+            $id_jt = $request->setujui;
+            $janjiTemu = JanjiTemu::where('id',$id_jt)->first();
+            $janjiTemu->update(['status' => 'Disetujui']);
             if (!$janjiTemu) {
                 return $this->sendError('Janji temu tidak ditemukan');
             }
@@ -54,7 +53,9 @@ class DosenController extends BaseController
                     'tanggal' => $janjiTemu->tanggal,
                     'materi' => $janjiTemu->materi,
                     'status' => 'Disetujui'
+                    
                 ]);
+                $konsultasi->makeHidden(['id','created_at','updated_at']);
                 return $this->sendResponse($konsultasi, 'Data berhasil disimpan ke tabel Konsultasi');
             }
             return $this->sendError('Janji temu tidak disetujui, tidak ada data yang disimpan');
@@ -64,8 +65,7 @@ class DosenController extends BaseController
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
 
-
-    //display konsultasi
+    //display konsul
     public function konsul() {
         // Ambil nip dari pengguna yang sedang login
         $nip = Auth::user()->id;
@@ -75,35 +75,35 @@ class DosenController extends BaseController
 
         // Query konsultasi berdasarkan nilai nim yang diambil
         $data = Konsultasi::select([
+            'konsultasi.nim', // Menambahkan kolom nim untuk ditampilkan
             'konsultasi.tanggal',
             'konsultasi.materi',
         ])
-        ->join('janjitemu', 'konsultasi.nim', '=', 'janjitemu.nim')
-        ->where('janjitemu.status', '=', 'Disetujui')
         ->whereIn('konsultasi.nim', $mahasiswaNim)
-        ->with([
-            'mahasiswa' => function ($q) {
-                $q->select(['nim', 'nama', 'semester', 'no_hp']);
-            }
-        ])
         ->get();
 
+        // Ambil data mahasiswa berdasarkan nim
+        $mahasiswaData = Mahasiswa::whereIn('nim', $mahasiswaNim)->get(['nim', 'nama', 'semester', 'no_hp']);
+
         // Format data untuk menyertakan field tambahan dalam respons
-        $display = $data->map(function ($item) {
+        $display = $data->map(function ($item) use ($mahasiswaData) {
+            // Temukan data mahasiswa yang sesuai dengan nim dari konsultasi
+            $mahasiswa = $mahasiswaData->firstWhere('nim', $item->nim);
+
             return [
-                'nim'       => $item->mahasiswa->nim,
-                'nama'      => $item->mahasiswa->nama,
-                'no_hp'     => $item->mahasiswa->no_hp,
+                'nim'       => $mahasiswa->nim,
+                'nama'      => $mahasiswa->nama,
+                'no_hp'     => $mahasiswa->no_hp,
                 'tanggal'   => $item->tanggal,
-                'semester'  => $item->mahasiswa->semester,
+                'semester'  => $mahasiswa->semester,
                 'materi'    => $item->materi,
-                'status'    => $item->janjitemu->status,
+                // Jika Anda ingin menambahkan status di sini, silakan sesuaikan sesuai kebutuhan.
+                'status'    => 'Disetujui', // Menetapkan status tetap 'Disetujui' jika diinginkan
             ];
         });
 
         return $this->sendResponse($display, 'Sukses mengambil data');
     }
-
 
     //display mahasiswa bimbingan
     public function mhs_bimbingan()

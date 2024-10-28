@@ -33,17 +33,17 @@ class MhsController extends BaseController
 
         // Cari janji temu berdasarkan nip dosen yang ada pada data mahasiswa
         $data = Mahasiswa::where('nip', $nip)
-        ->with([
-            'janji_temu' => function ($query) {
-                $query->select([
-                    'id',
-                    'nim',
-                    'tanggal',
-                    'materi',
-                    'status' // Pastikan kolom 'status' ada di tabel
-                ])->where('status', 'Disetujui'); // Filter janji temu yang sudah disetujui
-            }
-        ])->get(['nim', 'nama']);
+            ->with([
+                'janji_temu' => function ($query) {
+                    $query->select([
+                        'id',
+                        'nim',
+                        'tanggal',
+                        'materi',
+                        'status' // Pastikan kolom 'status' ada di tabel
+                    ])->where('status', 'Disetujui'); // Filter janji temu yang sudah disetujui
+                }
+            ])->get(['nim', 'nama']);
 
         // Jika data janji temu kosong
         if ($data->isEmpty()) {
@@ -52,7 +52,7 @@ class MhsController extends BaseController
 
         // Sembunyikan kolom 'nim' dari janji_temu di setiap mahasiswa
         $data->each(function ($mahasiswa) {
-            $mahasiswa->janji_temu->makeHidden(['id','nim','materi','status']);
+            $mahasiswa->janji_temu->makeHidden(['id', 'nim', 'materi', 'status']);
         });
 
         // Kembalikan data dengan pesan sukses

@@ -9,7 +9,6 @@ class Konsultasi extends Model
 {
     use HasFactory;
     protected $table        = 'konsultasi';
-    protected $primaryKey   = 'nim';
     protected $fillable     = [
         'nim',
         'tanggal',

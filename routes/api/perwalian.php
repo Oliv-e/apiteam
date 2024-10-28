@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 //api dosen
 Route::get('/d/konsul', [DosenController::class, 'konsul']);
-Route::get('/d/janjitemu', [DosenController::class, 'janji_temu']);
+Route::post('/d/janjitemu', [DosenController::class, 'janji_temu']);
 Route::get('/d/mahasiswa', [DosenController::class, 'mhs_bimbingan']);
 Route::get('/d/rekomendasi', [DosenController::class, 'rekomendasi']);
 Route::post('/d/janjitemu/tambah', [DosenController::class, 'janji_temu_create']);
