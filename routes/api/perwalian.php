@@ -8,12 +8,10 @@ use App\Http\Controllers\Api\RekomendasiController;
 use Illuminate\Support\Facades\Route;
 
 // Route untuk mengambil data rekomendasi
-
-Route::get('/rekomendasi', [RekomendasiController::class, 'rekomendasi']);
-Route::post('/rek-tambah', [RekomendasiController::class, 'rekomendasi_create']);
-
-Route::get('/khs', [KHSController::class, 'khs']);
-Route::post('/khs-tambah', [KHSController::class, 'khs_create']);
+// Route::get('/rekomendasi', [RekomendasiController::class, 'rekomendasi']);
+// Route::post('/rek-tambah', [RekomendasiController::class, 'rekomendasi_create']);
+// Route::get('/khs', [KHSController::class, 'khs']);
+// Route::post('/khs-tambah', [KHSController::class, 'khs_create']);
 
 //api dosen
 Route::get('/d/konsul', [DosenController::class, 'konsul']);
@@ -23,15 +21,7 @@ Route::get('/d/rekomendasi', [DosenController::class, 'rekomendasi']);
 Route::post('/d/janjitemu/tambah', [DosenController::class, 'janji_temu_create']);
 
 //api mahasiswa
-Route::post('/m/janjitemu', [MhsController::class, 'janji_temu']);
-
-Route::post('/konsul-tambah', [KonsultasiController::class, 'konsul_create']);
-Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
-Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
-
-Route::put('/konsul-edit/{nim}', [KonsultasiController::class, 'konsul_update']);
-Route::delete('/konsul-hapus/{nim}', [KonsultasiController::class, 'konsul_delete']);
-
-
-
-
+Route::get('/m/janjitemu', [MhsController::class, 'janji_temu']);
+Route::post('/m/janjitemu/tambah', [MhsController::class, 'janji_temu_create']);
+Route::get('/m/rekomendasi', [MhsController::class, 'rekomendasi']);
+Route::post('/m/rekomendasi/tambah', [MhsController::class, 'rekomendasi_create']);

@@ -26,7 +26,7 @@ class DosenController extends BaseController
                         'id', 'nim', 'tanggal', 'materi'
                     ]);
                 }
-            ])->get(['nim', 'nama', 'no_hp', 'semester']);
+            ])->get(['nim', 'nama']);
         
         if ($data->isEmpty()) {
             return $this->sendError('Data tidak ditemukan');
@@ -34,7 +34,7 @@ class DosenController extends BaseController
 
         // Hide 'nim' in the JanjiTemu model for each Mahasiswa
         $data->each(function ($mahasiswa) {
-            $mahasiswa->janji_temu->makeHidden(['nim']);
+            $mahasiswa->janji_temu->makeHidden(['nim','id']);
         });
 
         // Return the data with a success message
@@ -105,14 +105,13 @@ class DosenController extends BaseController
             'nim' => 'required',
             'tanggal' => 'required',
             'materi' => 'required',
-            'status' => 'required'
         ]);
 
         JanjiTemu::create([
             'nim' => $request->nim,
             'tanggal' => $request->tanggal,
             'materi' => $request->materi,
-            'status' => $request->status
+            'status' => 'Disetujui'
         ]);
 
         return $this->sendResponse($data, 'Sukses Membuat Data untuk mahasiswa yang dipilih!');
