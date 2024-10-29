@@ -25,9 +25,12 @@ class SibaperController extends BaseController
             ->select(['nip', 'id_jadwal'])
             ->with([
                 'jadwal' => function ($q) {
-                    $q->select(['id_jadwal', 'semester', 'start', 'finish', 'id_kelas'])
+                    $q->select(['id_jadwal','kode_matkul','semester', 'start', 'finish', 'id_kelas'])
                       ->with(['kelas' => function ($que) {
                           $que->select(['id_kelas', 'abjad_kelas']);
+                      }])
+                      ->with(['matkul' => function ($que) {
+                        $que->select(['kode_matkul','nama','sks_teori','sks_praktikum','jam_teori','jam_praktikum']);
                       }]);
                 },
                 'dosen' => function ($q) {
@@ -64,15 +67,23 @@ class SibaperController extends BaseController
 
                 $data = BeritaAcara::where('nip',$nip)
                 ->select([
-                    'minggu_ke',
                     'nip',
                     'id_jadwal',
+                    'id_rps',
                     'tanggal',
-                    'nama_matkul',
-                    'bahan_kajian',
-                    'sub_bahan_kajian',
-                    'status',
-                ])->get();
+                    'media',
+                    'jam_ajar',
+                    'minggu_ke',
+                    'status'
+                ])->with([
+                    'jadwal' => function ($q) {
+                        $q->select(['id_jadwal','kode_matkul','semester', 'start', 'finish', 'id_kelas'])
+                        ->with(['matkul' => function ($que) {
+                            $que->select(['kode_matkul','nama','sks_teori','sks_praktikum','jam_teori','jam_praktikum']);
+                        }]);
+                    }
+                ])
+                ->get();
 
                 foreach($data as $d) {
                     $d->rps->pokok_bahasan;
@@ -122,7 +133,7 @@ class SibaperController extends BaseController
             'status' => $data['status']
 
         ]);
-        $beritaacara->makeHidden(['id','updated_at','created_at'],);
+        $beritaacara->makeHidden(['id','updated_at','created_at']);
 
         // Return a success response
         return $this->sendResponse($beritaacara, 'Sukses membuat Data!');

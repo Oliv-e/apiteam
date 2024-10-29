@@ -11,7 +11,7 @@ class Matkul extends Model
     protected $table = 'matkul';
 
     protected $fillable = [
-        'kode',
+        'kode_matkul',
         'nama',
         'sks_teori',
         'sks_praktikum',

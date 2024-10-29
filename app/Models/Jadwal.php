@@ -22,13 +22,13 @@ class Jadwal extends Model
         'semester',
     ];
     public function matkul(){
-        return $this->belongsto(matkul::class, 'kode_matkul', 'kode_matkul');
+        return $this->belongsto(Matkul::class, 'kode_matkul', 'kode_matkul');
     }
     public function kelas(){
-        return $this->belongsto(kelas::class, 'id_kelas', 'id_kelas');
+        return $this->belongsto(Kelas::class, 'id_kelas', 'id_kelas');
     }
     public function ruang(){
-        return $this->belongsto(ruang::class, 'id_ruang', 'id_ruang');
+        return $this->belongsto(Ruang::class, 'id_ruang', 'id_ruang');
     }
 }
 
