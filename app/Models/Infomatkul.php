@@ -15,9 +15,9 @@ class Infomatkul extends Model
     protected $primary  = 'id';
 
     protected $fillable = [
-        'kode_mk',
+        'kode_matkul',
         'semester',
-        'dosen',
+        'nip',
         'sks',
         'deskripsi',
         'cp_prodi',
@@ -40,6 +40,11 @@ class Infomatkul extends Model
     public function matkul()
     {
         return $this->belongsTo(Matkul::class, 'kode_matkul',   'kode_matkul');
+    }
+    
+    public function jabatan()
+    {
+        return $this->hasOne(Jabatan::class, 'nip',   'nip');
     }
 }
 

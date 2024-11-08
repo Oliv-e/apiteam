@@ -15,7 +15,7 @@ Route::get('/', function() {
 });
 Route::get('/data/homepage', [SibaperController::class, 'Homepage']);
 Route::get('/data/historypage', [SibaperController::class, 'Historypage']);
-Route::post('/data/BeritaAcara/tambah', [SibaperController::class, 'berita_acara_create']);
+Route::post('/data/berita-acara', [SibaperController::class, 'berita_acara_create']);
 Route::get('/kelas-by-dosen-by-today', [SibaperController::class, 'kelas_by_dosen_today']);
 Route::get('/data/Jadwal', [JadwalController::class , 'jadwal']);
 Route::get('/data/rps', [RpsController::class, 'index']); // Untuk mengambil semua data RPS

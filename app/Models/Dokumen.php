@@ -10,16 +10,14 @@ class Dokumen extends Model
     use HasFactory;
     protected $table = 'dokumen';
     protected $fillable = [
-        'id_admin',
-        'id_kategori',
-        'nama_kategori',
-        'judul',
+        'title',
         'deskripsi',
-        'file_path',
-        'nomor_unik',
-        'upload_by'
+        'no_surat',
+        'tanggal_surat',
+        'kategori',
+        'jenis',
+        'tahun_akademik',
+        'filepath'
     ];
-    public function admin() {
-        return $this->belongsTo(StaffAdmin::class, 'id_admin', 'id_admin');
-    }
+    public $timestamps = false;
 }

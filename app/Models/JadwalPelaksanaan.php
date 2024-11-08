@@ -10,9 +10,9 @@ class JadwalPelaksanaan extends Model
 
     use HasFactory;
 
-
     // Nama tabel di database
     protected $table = 'jadwal_pelaksanaan';
+    protected $primary  = 'id';
 
     protected $fillable = [
         'minggu_ke',
@@ -36,10 +36,8 @@ class JadwalPelaksanaan extends Model
     {
         return $this->belongsTo(Dosen::class, 'nip', 'nip');
     }
-
-    // public function matkul()
-    // {
-    //     return $this->belongsTo(Matkul::class, 'kode_matkul',   'kode_matkul');
-    // }
+    
+    public function infomatkul(){
+        return $this->belongsto(Infomatkul::class, 'id_jadwal', 'id');
+    }
 }
-

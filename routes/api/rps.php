@@ -8,12 +8,8 @@ use App\Http\Controllers\Api\RPS\MatkulController;
 
 Route::prefix('')->group( function () { // uri : api/rps
     // GET SECTION
-    Route::get('/', [RpsController::class, 'index']); // uri : api/rps/
-    Route::get('/{id}', [RpsController::class, 'show']); // uri : api/rps/{id}
+    Route::get('/', [MatkulController::class, 'dashboard']); // uri : api/rps/
     // POST SECTION
-    Route::post('/create', [RpsController::class, 'create']); // uri : api/rps/create
-    Route::post('/update/{id}', [RpsController::class, 'update']); // uri : api/rps/update/{id}
-    Route::post('/delete/{id}', [RpsController::class, 'delete']); // uri : api/rps/delete
 });
 
 Route::prefix('referensi')->group( function () {
@@ -26,11 +22,23 @@ Route::prefix('referensi')->group( function () {
 
 Route::prefix('infomatkul')->group( function () {
     // GET SECTION
-    Route::get('/', [MatkulController::class, 'infomatkul']); // uri : api/rps/infomatkul
+    Route::get('/', [MatkulController::class, 'my_rps']); // untuk dosen
+    Route::get('/library', [MatkulController::class, 'library']); // uri : api/rps/infomatkul
+    Route::get('/detail/{id}', [MatkulController::class, 'detail_rps']); // uri : api/rps/infomatkul
     // POST SECTION
     Route::post('/create', [MatkulController::class, 'infomatkul_create']); // uri : api/rps/infomatkul/create
     Route::post('/update/{id}', [MatkulController::class, 'infomatkul_update']); // uri : api/rps/infomatkul/update/{id}
     Route::post('/delete/{id}', [MatkulController::class, 'infomatkul_delete']); // uri : api/rps/infomatkul/delete/{id}
+});
+
+Route::prefix('kaprodi')->group( function () {
+    // GET SECTION
+    Route::post('/', [MatkulController::class, 'daftarRps']); // uri : api/rps/infomatkul
+    Route::get('/library', [MatkulController::class, 'library']); // uri : api/rps/infomatkul
+    // POST SECTION
+    // Route::post('/create', [MatkulController::class, 'infomatkul_create']); // uri : api/rps/infomatkul/create
+    // Route::post('/update/{id}', [MatkulController::class, 'infomatkul_update']); // uri : api/rps/infomatkul/update/{id}
+    // Route::post('/delete/{id}', [MatkulController::class, 'infomatkul_delete']); // uri : api/rps/infomatkul/delete/{id}
 });
 
 Route::prefix('jadwal')->group( function () {

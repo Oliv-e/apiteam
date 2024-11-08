@@ -19,6 +19,7 @@ class ApiAuthController extends BaseController
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; // global
             $success['nama'] = $user->data_pribadi->nama; // kebutuhan kelompok ridho
             $success['role'] = $user->role; // kebutuhan kelompok iqbal
+            $success['id'] = $user->id;
 
             return $this->sendResponse($success, 'Berhasil Login');
         }

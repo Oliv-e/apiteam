@@ -16,4 +16,9 @@ class Jabatan extends Model
         'is_prodi',
         'is_kajur',
     ];
+    
+    public function infomatkul()
+    {
+        return $this->hasOne(Infomatkul::class, 'nip',   'nip');
+    }
 }

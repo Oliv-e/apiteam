@@ -23,6 +23,11 @@ class Mahasiswa extends Model
     public function janji_temu() {
         return $this->hasMany(JanjiTemu::class, 'nim', 'nim');
     }
+
+    public function konsultasi() {
+        return $this->hasMany(Konsultasi::class, 'nim', 'nim');
+    }
+
     public function rekomendasi() {
         return $this->hasMany(Rekomendasi::class, 'nim', 'nim');
     }

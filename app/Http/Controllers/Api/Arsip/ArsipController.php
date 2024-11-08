@@ -4,33 +4,111 @@ namespace App\Http\Controllers\Api\Arsip;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Dokumen;
-use App\Models\markeddokumen;
+use App\Models\MarkedDokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends BaseController
 {
-    // PR STORE GAMBAR --||__||--
-    // GET SECTION
+    // display dashboard admin
     public function getDokumen(){
-        $data = Dokumen::select('id', 'id_admin','id_kategori','nama_kategori','judul', 'deskripsi', 'file_path', 'nomor_unik','upload_by')
-        ->with([
-            'admin'
-        ])
-        ->get();
+        $data = Dokumen::all();
         return $this->SendResponse($data,'Sukses mengambil data');
     }
-    public function getDokumenSaya() {
-        $user = Auth::user()->id;
-        $dokumen = Dokumen::where('id_admin', $user)->get();
+    
+    // display dashboard dosen
+    public function dashboard_dosen(Request $request)
+    {
+        $nip = Auth::user()->id;
+        
+        // Ambil data dari tabel MarkedDokumen yang dijoin dengan tabel dokumen berdasarkan id_dokumen
+        $data = MarkedDokumen::join('dokumen', 'marked_dokumen.id_dokumen', '=', 'dokumen.id')
+            ->where('marked_dokumen.nip', $nip)
+            ->select(
+                'marked_dokumen.id as id', 
+                'dokumen.title', 
+                'dokumen.deskripsi', 
+                'dokumen.no_surat', 
+                'dokumen.tanggal_surat', 
+                'dokumen.kategori', 
+                'dokumen.jenis'
+            )
+            ->get();
+    
+        if ($data->isEmpty()) {
+            return $this->sendError('Dokumen tidak ditemukan');
+        }
+    
+        // Kembalikan data yang sudah difilter dan diambil
+        return $this->sendResponse($data, 'Sukses mengambil data');
+    }
+
+    
+    // display data dokumen by id
+    public function dokumenId($id, Request $request)
+    {
+        $nip = Auth::user()->id;
+    
+        // Ambil data dengan join antara MarkedDokumen dan Dokumen berdasarkan nip dan id
+        $data = MarkedDokumen::join('dokumen', 'marked_dokumen.id_dokumen', '=', 'dokumen.id')
+            ->where('marked_dokumen.nip', $nip)
+            ->where('marked_dokumen.id', $id)
+            ->select(
+                'marked_dokumen.id as id',
+                'dokumen.title', 
+                'dokumen.deskripsi', 
+                'dokumen.no_surat', 
+                'dokumen.tanggal_surat', 
+                'dokumen.kategori', 
+                'dokumen.jenis', 
+                'dokumen.tahun_akademik', 
+                'dokumen.filepath'
+            )
+            ->first();
+    
+        // Jika tidak ditemukan, kembalikan error
+        if (!$data) {
+            return $this->sendError('Dokumen tidak ditemukan atau Anda tidak memiliki akses');
+        }
+    
+        // Kembalikan data dokumen yang ditemukan
+        return $this->sendResponse($data, 'Sukses mengambil data dokumen yang di-klik');
+    }
+
+
+    
+    // hapus dokumen yg ditandai
+    public function hapus_dokumen($id) {
+        $nip = Auth::user()->id;
+        
+        // Cari data marked dokumen berdasarkan id
+        $markedDokumen = MarkedDokumen::find($id);
+    
+        // Jika data tidak ditemukan, berikan respons error
+        if (!$markedDokumen) {
+            return $this->sendError('Marked Dokumen tidak ditemukan');
+        }
+    
+        // Hapus data marked dokumen
+        $markedDokumen->delete();
+    
+        // Berikan respons sukses setelah penghapusan
+        return $this->sendResponse([], 'Marked Dokumen berhasil dihapus');
+    }
+
+    public function getDokumenById($id) {
+        $dokumen = Dokumen::where('id', $id)->get();
 
         return response()->json(['data'=> $dokumen, 'message'=> 'Sukses mengambil data'], 200);
     }
+    
     public function getDokumenDitandai(){
-        $data = markeddokumen::select('id', 'id_dosen', 'id_dokumen')->get();
-        return $this->SendResponse($data, 'Sukses mengambil data');
+        $id_dosen = Auth::user()->id;
+        $data = markeddokumen::where('nip', $id_dosen)->get();
+        return response()->json(['data' => $data, 'message' => 'Sukses mengambil data'], 200);
     }
+    
     public function getDokumenFilter($id){
 
         // Ambil dokumen yang sesuai dengan id_kategori dari tabel Dokumen
@@ -50,10 +128,9 @@ class ArsipController extends BaseController
                 'data' => $dokumen
             ], 200);
     }
-    public function GetDokumenNama($id){
-
+    public function GetDokumenNama($title){
         // Ambil dokumen yang sesuai dengan id_kategori dari tabel Dokumen
-            $dokumen = Dokumen::where('nama_kategori', $id)->get();
+            $dokumen = Dokumen::where('title', 'like', $title)->get();
 
         // Cek apakah ada dokumen yang ditemukan
             if ($dokumen->isEmpty()) {
@@ -69,94 +146,116 @@ class ArsipController extends BaseController
                 'data' => $dokumen
             ], 200);
     }
-    public function getDokumenDownload($id){
+    public function getDokumenDownload($id)
+    {
         // Cari dokumen berdasarkan ID
-            $dokumen = Dokumen::find($id);
-
+        $dokumen = Dokumen::find($id);
+    
         // Cek apakah dokumen ditemukan
-                if (!$dokumen) {
-                return $this->sendError('Dokumen tidak ditemukan.');
-            }
-
+        if (!$dokumen) {
+            return response()->json(['message' => 'Dokumen tidak ditemukan.'], 404);
+        }
+    
         // Ambil file path dari dokumen
-            $filePath = $dokumen->file_path;
-
+        $filePath = $dokumen->filepath; // Ensure this matches the actual property name
+    
         // Cek apakah file benar-benar ada di storage
-            if (!Storage::exists($filePath)) {
-                return $this->sendError('File tidak ditemukan.');
-            }
-
+        if (!Storage::disk('public')->exists($filePath)) {
+            return response()->json(['message' => 'File tidak ditemukan.'], 404);
+        }
+    
         // Mengirimkan file ke client untuk didownload
-            return Storage::download($filePath, $dokumen->judul . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+        return Storage::disk('public')->download($filePath, $dokumen->title . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+    }
+    public function ByKategoriJenis($kategori, $jenis) {
+        if ($kategori == 'semua' && $jenis == 'semua') {
+            $data = Dokumen::all();
+        } else if ($kategori != 'semua' && $jenis == 'semua') {
+            $data = Dokumen::where('kategori' , $kategori)->get();
+        } else if ($kategori == 'semua' && $jenis != 'semua') {
+            $data = Dokumen::where('jenis' , $jenis)->get();
+        } else {
+            $data = Dokumen::where('kategori', $kategori)->where('jenis', $jenis)->get();
+        }
+        return $this->SendResponse($data,'Sukses mengambil data');
     }
 
     // POST SECTION
     public function setDokumen(Request $request){
         $data = $request->validate([
-            'id_admin' => 'required',
-            'id_kategori' => 'required',
-            'nama_kategori' => 'required',
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'file_path' => 'required',
-            'nomor_unik' => 'required',
-            'upload_by' => 'required'
+            'title' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'no_surat' => 'required|string|max:255',
+            'tanggal_surat' => 'required|date',
+            'kategori' => 'required|string|max:255',
+            'jenis' => 'required|string|max:255',
+            'tahun_akademik' => 'required|string|max:255',
+            'filepath' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // Add file validation
         ]);
-        $file_path = $request->file('file_path')->store('dokumen');
+        
+        if ($request->hasFile('filepath')) {
+            $file = $request->file('filepath');
+            // Store the file and get the path
+            $filepath = $file->store('uploads', 'public'); // Store in 'storage/app/public/uploads'
+        } else {
+            $filepath = null;
+        }
 
-        Dokumen::create([
-            'id_admin' => $request->id_admin,
-            'id_kategori' => $request->id_kategori,
-            'nama_kategori' => $request->nama_kategori,
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'file_path' => $request->file_path,
-            'nomor_unik' => $request->nomor_unik,
-            'upload_by' => $request->upload_by
+        $res = Dokumen::create([
+            'title' => $data['title'],
+            'deskripsi' => $data['deskripsi'],
+            'no_surat' => $data['no_surat'],
+            'tanggal_surat' => $data['tanggal_surat'],
+            'kategori' => $data['kategori'],
+            'jenis' => $data['jenis'],
+            'tahun_akademik' => $data['tahun_akademik'],
+            'filepath' => $filepath,
         ]);
-        return $this->sendResponse($data, 'Sukses Memuat Data!');
+
+        return $this->sendResponse($res, 'Sukses Memuat Data!');
     }
     public function setDokumenUpdate(Request $request, $id)
     {
         // Cari dokumen berdasarkan ID
         $dokumen = Dokumen::find($id);
-
+    
         // Jika dokumen tidak ditemukan, berikan respons 404
         if (!$dokumen) {
             return response()->json(['message' => 'Dokumen tidak ditemukan'], 404);
         }
-
+    
         // Validasi input hanya untuk memastikan field yang diperlukan ada
         $request->validate([
-            'id_admin' => 'required | integer',
-            'id_kategori' => 'required | integer',
-            'nama_kategori' => 'required | string',
-            'judul' => 'required | string',
-            'deskripsi' => 'required | string',
-            'file_path' => 'required |string',
-            'nomor_unik' => 'required | integer',
-            'upload_by' => 'required | string'
+            'title' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'no_surat' => 'required|string|max:255',
+            'tanggal_surat' => 'required|date',
+            'kategori' => 'required|string|max:255',
+            'jenis' => 'required|string|max:255',
+            'tahun_akademik' => 'required|string|max:255',
+            'filepath' => 'sometimes|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
         ]);
-
-        $dokumen = Dokumen::findOrFail($id);
-
-        $dokumen->update([
-
+    
         // Update data dokumen dengan input yang baru
-        $dokumen->id_admin = $request->id_admin,
-        $dokumen->id_kategori = $request->id_kategori,
-        $dokumen->nama_kategori = $request->nama_kategori,
-        $dokumen->judul = $request->judul,
-        $dokumen->deskripsi = $request->deskripsi,
-        $dokumen->file_path = $request->file_path,
-        $dokumen->nomor_unik = $request->nomor_unik,
-        $dokumen->upload_by = $request->upload_by,
-        $dokumen->updated_at = now ()
-
+        $dokumen->update([
+            'title' => $request->title,
+            'deskripsi' => $request->deskripsi,
+            'no_surat' => $request->no_surat,
+            'tanggal_surat' => $request->tanggal_surat,
+            'kategori' => $request->kategori,
+            'jenis' => $request->jenis,
+            'tahun_akademik' => $request->tahun_akademik,
         ]);
-        // Simpan perubahan ke database
-        $dokumen->save();
-
+    
+        // Handle file upload if provided
+        if ($request->hasFile('filepath')) {
+            $file = $request->file('filepath');
+            // Store the file and get the path
+            $filepath = $file->store('uploads', 'public'); // Store in 'storage/app/public/uploads'
+            $dokumen->filepath = $filepath; // Update the filepath in the document
+            $dokumen->save(); // Save the changes to the document
+        }
+    
         // Berikan respons sukses
         return response()->json(['data' => $dokumen, 'message' => 'Update data sukses'], 200);
     }

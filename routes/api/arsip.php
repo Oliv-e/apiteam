@@ -7,16 +7,28 @@ use App\Http\Controllers\Api\Arsip\ArsipController;
 
 Route::prefix('dokumen')->group( function () { // uri : /api/arsip/dokumen
     // GET SECTION
-    Route::get('/saya', [ArsipController::class,'getDokumenSaya']); // uri : /api/arsip/dokumen/saya , [Berdasarkan user yang sedang login]
+    // Route::get('/', [ArsipController::class, 'getDokumen']);
+    Route::get('/{id}', [ArsipController::class,'getDokumenById']); // uri : /api/arsip/dokumen/saya , [Berdasarkan user yang sedang login]
     Route::get('/ditandai', [ArsipController::class,'getDokumenDitandai']); // uri : /api/arsip/dokumen/ditandai
     Route::get('/filter/{id}', [ArsipController::class, 'getDokumenFilter']); // uri : /api/arsip/dokumen/filter/{id} , [Berdasarkan id kategori]
-    Route::get('/nama/{id}', [ArsipController::class, 'getDokumenNama']); // uri : /api/arsip/dokumen/nama/{id} , [Berdasarkan nama kategori]
+    Route::get('/nama/{title}', [ArsipController::class, 'getDokumenNama']); // uri : /api/arsip/dokumen/nama/{id} , [Berdasarkan nama kategori]
     Route::get('/download/{id}', [ArsipController::class, 'getDokumenDownload']); //uri /api/arsip/dokumen/download/{id} , [Berdasarkan id kategori]
     // POST SECTION
     Route::post('/tambah', [ArsipController::class,'setDokumen']); // uri : /api/arsip/dokumen/tambah
     Route::post('/update/{id}', [ArsipController::class,'setDokumenUpdate']); // uri : /api/arsip/dokumen/update/{id}
     Route::post('/hapus/{id}', [ArsipController::class,'setDokumenHapus']); // uri : /api/arsip/dokumen/hapus/{id}
     Route::post('/ditandai/tambah', [ArsipController::class,'setDokumenDitandai']); // uri : /api/arsip/dokumen/ditandai/tambah
+});
+
+Route::prefix('d')->group( function () { // uri : /api/arsip/dokumen
+    // GET SECTION
+    Route::get('/dashboard', [ArsipController::class, 'dashboard_dosen']);
+    Route::get('/preview/{id}', [ArsipController::class,'dokumenId']);
+    // POST SECTION
+//     Route::post('/tambah', [ArsipController::class,'setDokumen']); // uri : /api/arsip/dokumen/tambah
+//     Route::post('/update/{id}', [ArsipController::class,'setDokumenUpdate']); // uri : /api/arsip/dokumen/update/{id}
+//     Route::post('/hapus/{id}', [ArsipController::class,'setDokumenHapus']); // uri : /api/arsip/dokumen/hapus/{id}
+    Route::delete('/ditandai/{id}', [ArsipController::class,'hapus_dokumen']); // uri : /api/arsip/dokumen/ditandai/tambah
 });
 
 // Changelist Log --

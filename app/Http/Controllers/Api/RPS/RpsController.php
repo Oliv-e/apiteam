@@ -14,7 +14,7 @@ class RpsController extends BaseController
             // Mengambil data dengan relasi 'dosen' dan 'matkul'
             $data = Rps::select([
                 'nip',
-                'kode_mk',
+                'kode_matkul',
                 'id_referensi',
                 'deskripsi',
                 'cp_prodi',
@@ -33,7 +33,7 @@ class RpsController extends BaseController
                 },
                 'matkul' => function ($q) {
                     // Memilih kolom 'kode_matkul' dan 'nama_matkul' dari relasi matkul
-                    $q->select(['kode', 'nama']);
+                    $q->select(['kode_matkul', 'nama']);
                 }
             ])->get();
 
@@ -49,7 +49,7 @@ class RpsController extends BaseController
             // Validasi input yang diterima
             $data = $request->validate([
                 'nip' => 'required',
-                'kode_mk' => 'required',
+                'kode_matkul' => 'required',
                 'id_referensi' => 'required',
                 'deskripsi' => 'required',
                 'cp_prodi' => 'required',
@@ -73,7 +73,7 @@ class RpsController extends BaseController
             // Membuat data baru berdasarkan input yang divalidasi
             Rps::create([
                 'nip' => $request->nip,
-                'kode_mk' => $request->kode_matkul,
+                'kode_matkul' => $request->kode_matkul,
                 'id_referensi' => $request->id_referensi,
                 'deskripsi' => $request->deskripsi,
                 'cp_prodi' => $request->cp_prodi,

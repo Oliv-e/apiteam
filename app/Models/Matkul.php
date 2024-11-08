@@ -11,14 +11,12 @@ class Matkul extends Model
     protected $table = 'matkul';
 
     protected $fillable = [
-        'kode',
+        'kode_matkul',
         'nama',
-        'sks_teori',
-        'sks_praktikum',
-        'jam_teori',
-        'jam_praktikum'
+        'sks',
+        'semester',
     ];
-    public function rps(){
-        return $this->hasMany(Rps::class, 'kode_matkul', 'kode');
+    public function infomatkul(){
+        return $this->belongTo(Infomatkul::class, 'kode_matkul', 'kode_matkul');
     }
 }

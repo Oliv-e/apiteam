@@ -7,7 +7,10 @@ use App\Http\Controllers\Api\IntegrationController;
 
 Route::post('/login', [AAC::class, 'login']); // uri : api/login
 
-Route::get('/', [ArsipController::class,'getDokumen']); // uri : /api/arsip/dokumen/
+Route::get('/arsip/dokumen', [ArsipController::class,'getDokumen']); // uri : /api/arsip/dokumen/
+Route::get('arsip/predokumen/{kategori?}/{jenis?}', [ArsipController::class, 'ByKategoriJenis']);
+Route::get('arsip/dokumen/{id}', [ArsipController::class,'getDokumenById']); // uri : /api/arsip/dokumen/saya , [Berdasarkan user yang sedang login
+
 
 Route::middleware(['auth:sanctum'])->group( function () {
     // Auth

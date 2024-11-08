@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\RPS;
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use App\Models\JadwalPelaksanaan;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalController extends BaseController
 {
@@ -23,9 +24,12 @@ class JadwalController extends BaseController
 
     public function jadwal_pelaksanaan_create(Request $request){
         try {
+            $nip = Auth::user()->id;
+            
             // validasi input yang diterima
             $data = $request->validate([
                 'minggu_ke' => 'required',
+                'waktu' => 'required',
                 'cp_tahapan_matkul' => 'required',
                 'bahan_kajian' => 'required',
                 'sub_bahan_kajian' => 'required',
@@ -51,12 +55,9 @@ class JadwalController extends BaseController
                 'referensi' => $request->referensi,
             ]);
 
-            // fungsi untuk membuat data rekomendasi baru
-
-
-            return $this->sendResponse($data, 'Data RPS berhasil ditambahkan');
+             return $this->sendResponse($data, 'Data jadwal pelaksanaan berhasil ditambahkan');
         } catch (\Exception $e) {
-            return $this->sendError('Gagal menambahkan data RPS', $e->getMessage());
+            return $this->sendError('Gagal menambahkan jadwal pelaksanaan', $e->getMessage());
         }
     }
 
