@@ -18,7 +18,7 @@ class DosenController extends BaseController
     public function janji_temu(Request $request)
     {
         $nip = Auth::user()->id;
-    
+
         // Ambil data mahasiswa yang terkait dengan nip dosen
         $data = Mahasiswa::where('nip', $nip)
             ->with([
@@ -29,31 +29,31 @@ class DosenController extends BaseController
                 }
             ])
             ->get(['nim', 'nama']);
-            
+
         if ($data->isEmpty()) {
             return $this->sendError('Data tidak ditemukan');
         }
-    
+
         // Sembunyikan 'nim' di model JanjiTemu untuk setiap Mahasiswa
         $data->each(function ($mahasiswa) {
             $mahasiswa->janji_temu->makeHidden(['nim']);
         });
-    
+
         // Jika ada permintaan untuk menyetujui janji temu
         if ($request->has('setujui')) {
             $id_jt = $request->setujui;
-            
+
             // Temukan janji temu berdasarkan id yang diberikan
             $janjiTemu = JanjiTemu::where('id', $id_jt)->first();
-            
+
             // Jika janji temu tidak ditemukan, kembalikan pesan error
             if (!$janjiTemu) {
                 return $this->sendError('Janji temu tidak ditemukan');
             }
-    
+
             // Update status janji temu menjadi 'Disetujui'
             $janjiTemu->update(['status' => 'Disetujui']);
-    
+
             // Simpan data ke tabel Konsultasi tanpa kolom status
             $konsultasi = Konsultasi::create([
                 'nim' => $janjiTemu->nim,
@@ -61,19 +61,21 @@ class DosenController extends BaseController
                 'materi' => $janjiTemu->materi
             ]);
             $konsultasi->save();
-    
+
             // Sembunyikan kolom tertentu sebelum dikembalikan sebagai respons
             $konsultasi->makeHidden(['created_at', 'updated_at']);
-            
+
             // Kembalikan respons sukses setelah menyimpan data
             return $this->sendResponse($konsultasi, 'Data berhasil disimpan ke tabel Konsultasi dan janji temu disetujui');
         }
-    
+
         // Kembalikan data permintaan janji temu yang belum disetujui
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
-    
+
     //display konsul
+    public function konsul()
+    {
     public function konsul()
     {
         // Ambil nip dari pengguna yang sedang login
@@ -126,8 +128,10 @@ class DosenController extends BaseController
         ->with(
             'mahasiswa:nim,nama,no_hp,semester,nip'
         )->first(['nama', 'nip']);
+        )->first(['nama', 'nip']);
 
         // Sembunyikan nip pada relasi mahasiswa
+        foreach ($dosen->mahasiswa as $mahasiswa) {
         foreach ($dosen->mahasiswa as $mahasiswa) {
             $mahasiswa->makeHidden(['nip']);
         }

@@ -19,32 +19,32 @@ class MhsController extends BaseController
     {
         // Mendapatkan nim dari user (mahasiswa) yang sedang login
         $nim = Auth::user()->id;
-    
+
         // Cari data mahasiswa berdasarkan nim yang sedang login
         $mahasiswa = Mahasiswa::where('nim', $nim)->first();
-    
+
         // Jika data mahasiswa tidak ditemukan
         if (!$mahasiswa) {
             return $this->sendError('Data mahasiswa tidak ditemukan');
         }
-    
+
         // Ambil nip dosen dari data mahasiswa
         $nip = $mahasiswa->nip;
-    
+
         // Cari semua mahasiswa yang memiliki nip yang sama dengan dosen yang terkait
         $mahasiswas = Mahasiswa::where('nip', $nip)->pluck('nim');
-    
+
         // Ambil semua data konsultasi yang terkait dengan nim mahasiswa tersebut
         $data = Konsultasi::whereIn('konsultasi.nim', $mahasiswas) // Filter konsultasi berdasarkan nim mahasiswa
             ->join('mahasiswa', 'konsultasi.nim', '=', 'mahasiswa.nim') // Menggabungkan tabel mahasiswa
             ->select('mahasiswa.nama', 'konsultasi.nim as nim', 'konsultasi.tanggal', 'konsultasi.materi') // Ambil kolom yang diperlukan dengan alias
             ->get();
-    
+
         // Jika data konsultasi kosong
         if ($data->isEmpty()) {
             return $this->sendError('Data konsultasi tidak ditemukan');
         }
-    
+
         // Kembalikan data dengan pesan sukses
         return $this->sendResponse($data, 'Sukses mengambil seluruh data konsultasi');
     }
