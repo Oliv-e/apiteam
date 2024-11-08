@@ -20,7 +20,7 @@ class SibaperController extends BaseController
     public function Homepage()
     {
         $nip = Auth::user()->id;
-    
+
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
         $data = BeritaAcara::select([
                 'berita_acara.nip',
@@ -37,7 +37,7 @@ class SibaperController extends BaseController
             ->join('matkul', 'jadwal.kode_matkul', '=', 'matkul.kode_matkul')
             ->where('infomatkul.nip', $nip) // Sesuaikan dengan nip di infomatkul
             ->get();
-    
+
         // Cek apakah data kosong
         if ($data->isEmpty()) {
             return response()->json([
@@ -45,15 +45,15 @@ class SibaperController extends BaseController
                 'message' => 'Data tidak ditemukan',
             ], 404);
         }
-    
+
         // Kembalikan respons sukses
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
-    
+
     // display historypage
     public function Historypage() {
         $nip = Auth::user()->id;
-    
+
         // Ambil data BeritaAcara berdasarkan NIP pengguna yang terautentikasi
         $data = BeritaAcara::select([
                 'jadwal_pelaksanaan.minggu_ke',
@@ -71,7 +71,7 @@ class SibaperController extends BaseController
             ->where('infomatkul.nip', $nip) // Sesuaikan dengan nip di infomatkul
             ->where('berita_acara.status', ['onprocess', 'complete']) // Filter status
             ->get();
-    
+
         // Cek apakah data kosong
         if ($data->isEmpty()) {
             return response()->json([
@@ -79,7 +79,7 @@ class SibaperController extends BaseController
                 'message' => 'Data tidak ditemukan',
             ], 404);
         }
-    
+
         // Kembalikan respons sukses
         return $this->sendResponse($data, 'Sukses mengambil data');
     }
@@ -89,7 +89,7 @@ class SibaperController extends BaseController
     {
         // auth user dengan ni[]
         $nip = Auth::user()->id;
-    
+
         // validasi data
         $data = $request->validate([
             'id_jadwal' => 'required', // Validasi id_jadwal ada di tabel jadwal_pelaksanaan
@@ -97,19 +97,19 @@ class SibaperController extends BaseController
             'jam_ajar' => 'required',
             'status' => 'required|in:onprocess,complete,notstarted', // Validasi status
         ]);
-    
+
         // Ambil data dari jadwal pelaksanaan dan infomatkul
         $jadwal = JadwalPelaksanaan::with(['infomatkul' => function($query) {
             $query->with(['matkul', 'kelas']);
         }])
         ->where('id', $data['id_jadwal'])
         ->first();
-    
+
         // Cek apakah jadwal ada
         if (!$jadwal) {
             return $this->sendError('Jadwal pelaksanaan tidak ditemukan.', 404);
         }
-    
+
         // Siapkan data untuk ditampilkan
         $beritaAcaraDetails = [
             'tanggal' => now()->format('Y-m-d'), // Tanggal sekarang
@@ -120,13 +120,13 @@ class SibaperController extends BaseController
             'sub_bahan_kajian' => $jadwal->infomatkul->sub_bahan_kajian ?? 'N/A', // Sub bahan kajian
             'bentuk_pembelajaran' => $jadwal->bentuk_pembelajaran, // Bentuk pembelajaran
         ];
-    
+
         // tampilkan informasi data yg diambil
         $response = [
             'data' => $beritaAcaraDetails,
             'message' => 'Data berhasil diambil.'
         ];
-    
+
         // Jika ingin langsung menambahkan BeritaAcara setelah menampilkan data, Anda bisa menambahkan logika berikut
         $beritaacara = BeritaAcara::create([
             'nip' => $nip, // Automatically use the logged-in user's NIP
@@ -138,10 +138,10 @@ class SibaperController extends BaseController
             'minggu_ke' => $data['minggu_ke'], // Gunakan minggu_ke dari request
             'status' => $data['status'], // Status yang divalidasi
         ]);
-    
+
         // Tambahkan detail berita acara ke respons
         $response['berita_acara'] = $beritaacara;
-    
+
         return $this->sendResponse($response, 'Sukses membuat Data!');
     }
  }

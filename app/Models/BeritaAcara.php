@@ -20,32 +20,37 @@ class BeritaAcara extends Model
         'minggu_ke',
         'status'
     ];
-    
+
     // public function rps(){
     //     return $this->belongsTo(JadwalPelaksanaan::class, 'id_rps', 'id');
     // }
         public function matkul()
         {
-            return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');  
+            return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
         }
-    
-       
+
+
         public function dosen()
         {
-            return $this->belongsTo(Dosen::class, 'nip', 'nip'); 
+            return $this->belongsTo(Dosen::class, 'nip', 'nip');
         }
-    
-   
+
+
         public function jadwal()
         {
-            return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id_jadwal'); 
+            return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id_jadwal');
         }
-   
+
         public function infomatkul()
         {
             return $this->belongsTo(Infomatkul::class, 'id_rps', 'id');
         }
 
-        
+        public function infomatkul()
+        {
+            return $this->belongsTo(Infomatkul::class, 'id_rps', 'id');
+        }
+
+
     }
 
